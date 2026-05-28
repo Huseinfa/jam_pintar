@@ -43,6 +43,11 @@
                         Feedback
                     </option>
 
+                    <option value="pretest"
+                        {{ $question->question_type == 'pretest' ? 'selected' : '' }}>
+                        PreTest
+                    </option>
+
                     {{-- <option value="test"
                         {{ $question->question_type == 'test' ? 'selected' : '' }}>
                         Test

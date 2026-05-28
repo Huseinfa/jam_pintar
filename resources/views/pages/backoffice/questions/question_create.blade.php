@@ -16,6 +16,7 @@
                 <select name="question_type" class="form-select">
                     <option value="kuisioner">Kuisioner</option>
                     <option value="feedback">Feedback</option>
+                    <option value="pretest">PreTest</option>
                     {{-- <option value="test">Test</option>
                     <option value="rating">Rating</option>
                     <option value="post_test">Post Test</option> --}}
