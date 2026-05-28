@@ -25,6 +25,11 @@ class TestController extends Controller
             $questions = Question::limit(10)->get();
         }
 
+        // // pastikan admin tidak boleh mengikui tes dan hanya student saja
+        // if(auth()->check() && auth()->user()->isAdmin()) {
+        //     return redirect()->route('backoffice.index');
+        // }
+
         return view('pages.student.test', [
             'questions' => $questions,
             'totalQuestions' => $questions->count(),

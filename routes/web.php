@@ -15,6 +15,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\CityController as BackofficeCityController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
@@ -54,6 +55,11 @@ Route::prefix('auth')->name('auth.')->group(function () {
 // ─── Feedback Routes ───────────────────────────────────────────────────────────
 Route::get('/feedback/{token}', [FeedbackController::class, 'showForm'])->middleware('auth')->name('feedback.form');  // Require auth
 Route::post('/feedback/{token}', [FeedbackController::class, 'submitFeedback'])->middleware('auth')->name('feedback.submit');
+
+// route untuk onboarding questionenr sebelum login
+Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+Route::post('/onboarding/submit', [OnboardingController::class, 'submit'])->name('pretest.submit');
+
 
 // ─── Student Routes (Authenticated Only) ───────────────────────────────────────
 

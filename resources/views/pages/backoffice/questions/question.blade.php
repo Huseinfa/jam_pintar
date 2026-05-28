@@ -88,6 +88,19 @@
                     </tbody>
                 </table>
             </div>
+            {{-- Pagination --}}
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <small class="text-muted">
+                    Menampilkan
+                    {{ $questions->firstItem() }}
+                    -
+                    {{ $questions->lastItem() }}
+                    dari
+                    {{ $questions->total() }}
+                    data question
+                </small>
+                {{ $questions->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 @endsection
