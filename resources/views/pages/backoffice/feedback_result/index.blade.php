@@ -44,9 +44,7 @@
 
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show">
-
                 {{ session('error') }}
-
                 <button class="btn-close" data-bs-dismiss="alert">
                 </button>
 
@@ -60,13 +58,9 @@
 
                 {{-- Filter --}}
                 <div class="row mb-3">
-
                     <div class="col-md-6 d-flex align-items-center gap-2">
-
                         <label>Show</label>
-
                         <form method="GET">
-
                             <select class="form-select form-select-sm" onchange="updatePerPage(this.value)"
                                 style="width:90px">
 
@@ -91,19 +85,12 @@
                                 </option>
 
                             </select>
-
                         </form>
-
                         <label>entries</label>
-
                     </div>
-
                     <div class="col-md-6 text-end">
-
                         <form method="GET" id="searchForm">
-
                             <input type="hidden" name="per_page" value="{{ $perPage }}">
-
                             <input type="text" class="form-control form-control-sm d-inline" id="searchInput"
                                 name="search" value="{{ $search }}" placeholder="Cari nama pengguna..."
                                 style="max-width:250px" autocomplete="off">
@@ -116,13 +103,9 @@
 
                 {{-- Table --}}
                 <div class="table-responsive">
-
                     <table class="table table-hover align-middle">
-
                         <thead class="table-light">
-
                             <tr>
-
                                 <th>ID</th>
                                 <th>Nama User</th>
                                 <th>Jam Pintar</th>
@@ -130,11 +113,8 @@
                                 <th>Tanggal Feedback</th>
                                 <th>Status</th>
                                 <th width="120">Aksi</th>
-
                             </tr>
-
                         </thead>
-
                         <tbody>
 
                             @forelse($feedbacks as $feedback)
@@ -158,13 +138,10 @@
                                     <td>
                                         {{ $feedback->id }}
                                     </td>
-
                                     <td>
                                         {{ $feedback->user->name ?? '-' }}
                                     </td>
-
                                     <td>
-
                                         @if ($feedback->result && $feedback->result->recommendation)
                                             {{ \Carbon\Carbon::parse($feedback->result->recommendation->study_hour_start)->format('H:i') }}
                                             -
@@ -176,11 +153,8 @@
                                     </td>
 
                                     <td>
-
                                         {{ $feedback->result->recommendation->prefered_study_time ?? '-' }}
-
                                     </td>
-
                                     <td>
 
                                         {{ $feedback->updated_at->format('d M Y') }}
@@ -215,21 +189,15 @@
                                             class="btn btn-info btn-sm">
                                             <i class="bi bi-eye"></i>
                                         </a>
-
                                     </td>
-
                                 </tr>
 
                             @empty
 
                                 <tr>
-
                                     <td colspan="7" class="text-center py-4">
-
                                         Belum ada data feedback
-
                                     </td>
-
                                 </tr>
                             @endforelse
 
@@ -244,19 +212,12 @@
                     <div class="d-flex justify-content-between align-items-center mt-3">
 
                         <small class="text-muted">
-
                             Menampilkan
-
                             {{ $feedbacks->firstItem() }}
-
                             -
-
                             {{ $feedbacks->lastItem() }}
-
                             dari
-
                             {{ $feedbacks->total() }}
-
                         </small>
 
                         {{ $feedbacks->appends(request()->query())->links('pagination::bootstrap-5') }}
@@ -289,34 +250,24 @@
         document.addEventListener(
             'DOMContentLoaded',
             function() {
-
                 const searchInput =
                     document.getElementById(
                         'searchInput'
                     );
-
                 const searchForm =
                     document.getElementById(
                         'searchForm'
                     );
-
                 let timer;
-
                 searchInput.addEventListener(
                     'keyup',
                     function() {
-
                         clearTimeout(timer);
-
                         timer =
                             setTimeout(() => {
-
                                 searchForm.submit();
-
                             }, 400);
-
                     });
-
             });
     </script>
 
