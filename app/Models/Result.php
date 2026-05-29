@@ -30,11 +30,11 @@ class Result extends Model
     {
         return $this->belongsTo(Recommendation::class);
     }
-    
+
     public function testAttempt(): BelongsTo
     {
         return $this->belongsTo(TestAttempt::class);
     }
- 
+
 }
- 
+

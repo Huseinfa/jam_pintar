@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +15,14 @@
     {{-- font options --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <style>
-        *  {
+        * {
             font-family: 'Poppins', sans-serif;
         }
+
         body {
             min-height: 100vh;
             background-color: #f8f9fa;
@@ -65,7 +69,7 @@
         /* Active menu */
         .active-sidebar {
             font-weight: 700;
-            background-color: rgba(255,255,255,0.12);
+            background-color: rgba(255, 255, 255, 0.12);
             border-radius: 10px;
         }
 
@@ -73,6 +77,7 @@
         .active-sidebar i {
             font-weight: 700;
         }
+
         /* Prevent unexpectedly large icon rendering (diagnostic quick-fix) */
         .bi {
             font-size: 1rem !important;
@@ -82,6 +87,7 @@
 
     @stack('styles')
 </head>
+
 <body>
 
     {{-- Sidebar Admin --}}
@@ -93,8 +99,8 @@
             {{-- Dashboard --}}
             <li class="nav-item">
                 <a href="{{ route('backoffice.index') }}"
-                class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.index') ? 'active-sidebar' : '' }}">
-                    
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.index') ? 'active-sidebar' : '' }}">
+
                     <i class="bi bi-house me-2"></i>
                     Dashboard
                 </a>
@@ -103,8 +109,8 @@
             {{-- CRUD Question --}}
             <li class="nav-item">
                 <a href="{{ route('backoffice.question') }}"
-                class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.question') ? 'active-sidebar' : '' }}">
-                    
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.question') ? 'active-sidebar' : '' }}">
+
                     <i class="bi bi-question-circle me-2"></i>
                     Pertanyaan
                 </a>
@@ -113,12 +119,23 @@
             {{-- CRUD Cities --}}
             <li class="nav-item">
                 <a href="{{ route('backoffice.cities') }}"
-                class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.cities*') ? 'active-sidebar' : '' }}">
-                    
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.cities*') ? 'active-sidebar' : '' }}">
+
                     <i class="bi bi-geo-alt me-2"></i>
                     Kota
                 </a>
             </li>
+
+            {{-- RESULT Feedback --}}
+            <li class="nav-item">
+                <a href="{{ route('backoffice.feedback_result') }}"
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.feedback_result*') ? 'active-sidebar' : '' }}">
+
+                    <i class="bi bi-chat-left-text me-2"></i> {{-- Menambahkan ikon chat --}}
+                    Feedback Result
+                </a>
+            </li>
+
         </ul>
 
         <div class="mt-auto">
@@ -144,7 +161,7 @@
     {{-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @if(session('success'))
+    @if (session('success'))
         <script>
             Swal.fire({
                 icon: 'success',
@@ -155,17 +172,17 @@
                 showConfirmButton: false
             });
         </script>
-    @endif 
+    @endif
 
     {{-- sweet alert delete --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const deleteButtons = document.querySelectorAll('.btn-delete');
 
             deleteButtons.forEach(button => {
 
-                button.addEventListener('click', function (e) {
+                button.addEventListener('click', function(e) {
 
                     e.preventDefault();
 
@@ -197,56 +214,55 @@
     </script>
     {{-- Sweet Alert Delete City --}}
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-    document.addEventListener('DOMContentLoaded', function () {
+            const cityButtons =
+                document.querySelectorAll('.btn-delete-city');
 
-        const cityButtons =
-            document.querySelectorAll('.btn-delete-city');
+            cityButtons.forEach(button => {
 
-        cityButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
 
-            button.addEventListener('click', function(e){
+                    e.preventDefault();
 
-                e.preventDefault();
+                    const form =
+                        this.closest('form');
 
-                const form =
-                    this.closest('form');
+                    const cityName =
+                        this.dataset.city;
 
-                const cityName =
-                    this.dataset.city;
+                    Swal.fire({
 
-                Swal.fire({
+                        title: 'Hapus Kota?',
+                        text: `Kota "${cityName}" akan dihapus.`,
+                        icon: 'warning',
 
-                    title:'Hapus Kota?',
-                    text:`Kota "${cityName}" akan dihapus.`,
-                    icon:'warning',
+                        showCancelButton: true,
 
-                    showCancelButton:true,
+                        confirmButtonColor: '#dc3545',
+                        cancelButtonColor: '#6c757d',
 
-                    confirmButtonColor:'#dc3545',
-                    cancelButtonColor:'#6c757d',
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal'
 
-                    confirmButtonText:'Ya, Hapus!',
-                    cancelButtonText:'Batal'
+                    }).then((result) => {
 
-                }).then((result)=>{
+                        if (result.isConfirmed) {
 
-                    if(result.isConfirmed){
+                            form.submit();
 
-                        form.submit();
+                        }
 
-                    }
+                    });
 
                 });
 
             });
 
         });
-
-    });
-
     </script>
 
     @stack('scripts')
 </body>
+
 </html>
