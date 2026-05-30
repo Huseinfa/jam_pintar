@@ -63,7 +63,11 @@ class AuthController extends Controller
         $remember = $request->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
+                // dd('LOGIN CONTROLLER DIPANGGIL');
+
             $request->session()->regenerate();
+
+            // dd(session()->all());
 
             // add untuk remember me, jika checkbox remember me dicentang maka session akan bertahan selama 7 hari
             // function remember()
@@ -85,8 +89,11 @@ class AuthController extends Controller
             if ($user->isAdmin()) {
                 return redirect()->intended(route('backoffice.index'));
             }
+
+            return redirect()->route('dashboard');
             // Jika user berasal dari onboarding/pretest
             if (session()->has('pretest_done')) {
+                // dd('PRETEST DETECTED');
                 return redirect()->route('student.index');
             }
             // Default redirect

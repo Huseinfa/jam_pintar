@@ -15,9 +15,12 @@ class ResultController extends Controller
 {
     public function downloadPdf($attemptId)
     {
-        $result = Result::with('recommendation')
-            ->where('test_attempt_id', $attemptId)
-            ->firstOrFail();
+        $result = Result::with([
+            'recommendation',
+            'testAttempt.user'
+        ])
+        ->where('test_attempt_id', $attemptId)
+        ->firstOrFail();
 
         // $pdf = Pdf::loadView('pdf.result', compact('result')); //coba untuk save ke dalam laravel
         // return $pdf->download('hasil-rekomendasi.pdf');

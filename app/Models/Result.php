@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Jobs\SendResultEmail;
+use App\Models\Recommendation;
+use App\Models\TestAttempt;
+use App\Models\User;
+
 
 class Result extends Model
 {
@@ -35,6 +39,11 @@ class Result extends Model
     {
         return $this->belongsTo(TestAttempt::class);
     }
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 
 }
 

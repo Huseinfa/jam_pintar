@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Question;
+use Illuminate\Support\Facades\Auth;
+
 
 class OnboardingController extends Controller
 {
@@ -28,10 +30,19 @@ class OnboardingController extends Controller
         // return response()->json([
         //     'success' => true,
         // ]);
-return response()->json([
-    'success' => true,
-    'redirect' => route('login'),
-]);
+        // kondisi pengecekan apakah user sudah login atau belum, jika belum login, arahkan ke halaman login, jika sudah login arahkan ke halaman instruction
+
+        if (Auth::check()) {
+        return response()->json([
+            'success' => true,
+            'redirect' => route('student.index'),
+        ]);
+    }
+
+        return response()->json([
+            'success' => true,
+            'redirect' => route('login'),
+        ]);
 
     }
 }
