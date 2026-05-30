@@ -12,6 +12,12 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\ResultController;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\FeedbackResultController;
+use App\Http\Controllers\CityController as BackofficeCityController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
 
@@ -25,15 +31,36 @@ Route::get('/login', function () {
 })->name('login');
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
+// forget password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])
+    ->name('password.request');
+
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('password.email');
+
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])
+    ->name('password.update');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    
+
     // Registrasi
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
+
+// ─── Feedback Routes ───────────────────────────────────────────────────────────
+Route::get('/feedback/{token}', [FeedbackController::class, 'showForm'])->middleware('auth')->name('feedback.form');  // Require auth
+Route::post('/feedback/{token}', [FeedbackController::class, 'submitFeedback'])->middleware('auth')->name('feedback.submit');
+
+// route untuk onboarding questionenr sebelum login
+Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+Route::post('/onboarding/submit', [OnboardingController::class, 'submit'])->name('pretest.submit');
+
 
 // ─── Student Routes (Authenticated Only) ───────────────────────────────────────
 
@@ -44,6 +71,10 @@ Route::prefix('student')
         Route::get('/instruction', [InstructionController::class, 'index'])->name('index');
         Route::get('/test', [TestController::class, 'index'])->name('test');
         Route::post('/test/submit', [TestController::class, 'submit'])->name('test.submit');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/feedback/reminders', [FeedbackController::class, 'listPendingReminders'])->name('feedback.reminders');
+        // try and eror route untuk google calendar
+        Route::get('/calendar/{result}', [ResultController::class, 'googleCalendar'])->name('calendar');
     });
 
 // routeuntuk menampilkan hasil rekomendasi berdasarkan test attempt id
@@ -52,7 +83,7 @@ Route::get('/result/{attemptId}', [ResultController::class, 'downloadPdf'])->nam
 // ─── Backoffice (admin only) ───────────────────────────────────────────────────
 
 Route::prefix('backoffice')
-    ->middleware(['auth', AdminMiddleware::class])
+    // ->middleware(['auth', AdminMiddleware::class])
     ->name('backoffice.')
     ->group(function () {
         Route::get('/', [BackofficeController::class, 'index'])->name('index');
@@ -63,4 +94,23 @@ Route::prefix('backoffice')
         Route::get('/question/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
         Route::put('/question/{question}', [QuestionController::class, 'update'])->name('questions.update');
         Route::get('/question/{question}', [QuestionController::class, 'show'])->name('question.show');
+
+        // Cities Routes
+        Route::get('/cities', [BackofficeCityController::class, 'index'])->name('cities');
+        Route::get('/cities/create', [BackofficeCityController::class, 'create'])->name('cities.create');
+        Route::post('/cities', [BackofficeCityController::class, 'store'])->name('cities.store');
+        Route::get('/cities/{city}', [BackofficeCityController::class, 'show'])->name('cities.show');
+        Route::get('/cities/{city}/edit', [BackofficeCityController::class, 'edit'])->name('cities.edit');
+        Route::put('/cities/{city}', [BackofficeCityController::class, 'update'])->name('cities.update');
+        Route::delete('/cities/{city}', [BackofficeCityController::class, 'destroy'])->name('cities.destroy');
+
+        // feedback
+        Route::get('/feedback-result', [FeedbackResultController::class, 'index'])
+            ->name('feedback_result');
+
+        Route::get('/feedback-result/export', [FeedbackResultController::class, 'export'])
+            ->name('feedback_result.export');
+
+        Route::get('/feedback-result/{testAttempt}', [FeedbackResultController::class, 'show'])
+            ->name('feedback_result.show');
     });

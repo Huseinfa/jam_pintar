@@ -99,6 +99,39 @@ class QuestionSeeder extends Seeder
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+            // pretest question
+            [
+                'question_text' => 'Semester berapa kamu saat ini?',
+                'question_type' => 'pretest',
+                'option'        => json_encode(['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6', 'Semester 7', 'Semester 8']),
+                'answer_type'   => 'choice',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
+            [
+                'question_text' => 'Aktivitas lain yang kamu lakukan seperti apa selain kuliah?',
+                'question_type' => 'pretest',
+                'option'        => json_encode(['Fokus kuliah', 'Kuliah sambil organisasi', 'Kuliah sambil kerja/freelance', 'Aktif lomba/proyek']),
+                'answer_type'   => 'choice',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
+            [
+                'question_text' => 'Hal apa yang paling sering membuat belajar terasa sulit?',
+                'question_type' => 'pretest',
+                'option'        => json_encode(['Sulit fokus', 'Mudah terdistraksi', 'Kurang konsisten', 'Cepat bosan', 'Sulit mengatur waktu']),
+                'answer_type'   => 'choice',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
+            [
+                'question_text' => 'Apa yang paling kamu harapkan dari aplikasi ini?',
+                'question_type' => 'pretest',
+                'option'        => json_encode(['Membantu lebih fokus', 'Membantu lebih disiplin', 'Membantu mengatur belajar', 'Membantu membangun kebiasaan belajar', 'Membantu meningkatkan produktivitas']),
+                'answer_type'   => 'choice',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
         ]);
     }
 }

@@ -19,21 +19,21 @@
 
                 <!-- Home -->
                 <li class="nav-item">
-                    <a class="nav-link mx-2 nav-link-custom active" href="#home">
+                    <a class="nav-link mx-2 nav-link-custom active" href="{{ route('dashboard') }}#home">
                         Home
                     </a>
                 </li>
 
                 <!-- How It Works -->
                 <li class="nav-item">
-                    <a class="nav-link mx-2 nav-link-custom" href="#method">
+                    <a class="nav-link mx-2 nav-link-custom" href="{{ route('dashboard') }}#method">
                         Steps
                     </a>
                 </li>
 
                 <!-- About -->
                 <li class="nav-item">
-                    <a class="nav-link mx-2 nav-link-custom" href="#about">
+                    <a class="nav-link mx-2 nav-link-custom" href="{{ route('dashboard') }}#about">
                         About
                     </a>
                 </li>
@@ -47,10 +47,16 @@
                         <i class="bi bi-person-circle me-2"></i>{{ auth()->user()->name ?? auth()->user()->email }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
+                        {{-- <li>
                             <span class="dropdown-item-text small text-muted">
                                 {{ auth()->user()->email }}
                             </span>
+                        </li> --}}
+                        {{-- bagian untuk menuju profil --}}
+                        <li>
+                            <a class="dropdown-item" href="{{ route('student.profile') }}">
+                                <i class="bi bi-person me-2"></i>Profile
+                            </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
@@ -84,6 +90,8 @@
         font-weight: 500;
         transition: all 0.25s ease;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
     }
 
     .btn-login-custom:hover {
@@ -100,9 +108,10 @@
     }
 
     .navbar {
-        position: sticky;
+        position: fixed;
         top: 0;
         z-index: 999;
+        width: 100%;
     }
 
     .nav-link-custom {
@@ -125,7 +134,7 @@
     @media (max-width: 992px) {
         .btn-login-custom {
             margin-top: 0.5rem;
-            width: fit-content;
+            width: 100%;
         }
     }
 </style>

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CityController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 // NOTE: Test submission and public endpoints moved to routes/web.php
+
+// City search endpoints
+Route::get('/cities/search', [CityController::class, 'index']);

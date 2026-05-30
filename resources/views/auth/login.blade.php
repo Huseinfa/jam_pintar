@@ -81,13 +81,11 @@
                             <label class="form-check-label" for="remember">Ingat saya</label>
                         </div>
                         {{-- lupa password --}}
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" 
-                               class="small text-decoration-none fw-semibold" 
-                               style="color: #F5A623;">
-                                Lupa Password
-                            </a>
-                        @endif
+                        <a href="{{ route('password.request') }}" 
+                           class="small text-decoration-none fw-semibold" 
+                           style="color: #F5A623;">
+                            Lupa Password
+                        </a>
                     </div>
 
                     {{-- Tombol Masuk --}}

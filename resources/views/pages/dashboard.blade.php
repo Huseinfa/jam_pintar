@@ -24,18 +24,14 @@
                     Lewat kuis seru, kami bantu kamu kenali ritme belajarmu!
                 </p>
 
-                <!-- Button -->
-                @auth
-                    {{-- <a href="{{ route('student.test') }}" class="btn btn-hero px-4 py-3 rounded-pill"> --}}
-                    <a href="{{ route('student.index') }}" class="btn btn-hero px-4 py-3 rounded-pill">
+                {{-- button --}}
+                {{-- <a href="{{ route('student.index') }}" class="btn btn-hero px-4 py-3 rounded-pill">
+                    Cari Jam Pintarku
+                </a> --}}
 
-                        Mulai Perjalanan
-                    </a>
-                @else
-                    <button type="button" class="btn btn-hero px-4 py-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#modalLogin">
-                        Cari Jam Pintarku
-                    </button>
-                @endauth
+                <a href="{{ route('onboarding') }}" class="btn btn-hero px-4 py-3 rounded-pill">
+                    Cari Jam Pintarku
+                </a>
 
             </div>
         </div>
@@ -200,15 +196,16 @@
                 </p>
 
                 <!-- Button -->
-                @auth
-                    <a href="{{ route('student.test') }}" class="btn btn-hero px-4 py-3 rounded-pill">
+                {{-- @auth --}}
+
+                <a class="btn btn-hero px-4 py-3 rounded-pill" href="#home">
+                    Mulai Perjalanan
+                </a>
+                {{-- @else --}}
+                {{-- <button type="button" class="btn btn-hero px-4 py-3 rounded-pill"  href="#home">
                         Mulai Perjalanan
-                    </a>
-                @else
-                    <button type="button" class="btn btn-hero px-4 py-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#modalLogin">
-                        Mulai Perjalanan
-                    </button>
-                @endauth
+                    </button> --}}
+                {{-- @endauth --}}
             </div>
         </div>
     </section>
@@ -524,13 +521,21 @@
         }
     </style>
 
-    @if(request()->query('showLogin'))
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var modal = new bootstrap.Modal(document.getElementById('modalLogin'));
-            modal.show();
-        });
-    </script>
+    @if (request()->query('showLogin'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var modal = new bootstrap.Modal(document.getElementById('modalLogin'));
+                modal.show();
+            });
+        </script>
     @endif
 
+    @if (request()->query('showLogin')) 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                var modal = new bootstrap.Modal( document.getElementById('modalLogin') ); modal.show(); // Hapus query parameter setelah modal muncul 
+                window.history.replaceState({}, document.title, window.location.pathname); 
+            }); 
+        </script>
+    @endif
 @endsection

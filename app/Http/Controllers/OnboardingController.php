@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 
+
 class OnboardingController extends Controller
 {
     public function index()

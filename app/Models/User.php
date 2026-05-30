@@ -28,6 +28,8 @@ class User extends Authenticatable
         'birth_date',
         'gender',
         'role',
+        'github_username',
+        'allow_feedback_emails',
     ];
 
     /**
@@ -58,6 +60,11 @@ class User extends Authenticatable
     public function testAttempts(): HasMany
     {
         return $this->hasMany(TestAttempt::class);
+    }
+
+    public function feedbackInvitations(): HasMany
+    {
+        return $this->hasMany(FeedbackInvitation::class);
     }
 
     public function city()

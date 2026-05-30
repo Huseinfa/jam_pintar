@@ -43,10 +43,10 @@ class Question extends Model
     //     return $this->question_type === 'rating';
     // }
  
-    // public function isPostTest(): bool
-    // {
-    //     return $this->question_type === 'post_test';
-    // }
+    public function isPreTest(): bool
+    {
+        return $this->question_type === 'pretest';
+    }
  
     public function isChoice(): bool
     {
