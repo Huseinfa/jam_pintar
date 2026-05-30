@@ -90,7 +90,7 @@ class AuthController extends Controller
                 return redirect()->intended(route('backoffice.index'));
             }
 
-            return redirect()->route('dashboard');
+            // return redirect()->route('dashboard');
             // Jika user berasal dari onboarding/pretest
             if (session()->has('pretest_done')) {
                 // dd('PRETEST DETECTED');
