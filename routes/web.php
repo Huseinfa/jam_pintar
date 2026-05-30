@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\BackofficeUserController;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -96,4 +97,15 @@ Route::prefix('backoffice')
         Route::get('/cities/{city}/edit', [BackofficeCityController::class, 'edit'])->name('cities.edit');
         Route::put('/cities/{city}', [BackofficeCityController::class, 'update'])->name('cities.update');
         Route::delete('/cities/{city}', [BackofficeCityController::class, 'destroy'])->name('cities.destroy');
+        
+        // Users management (list, show details, export CSV)
+        Route::get('/users', [BackofficeUserController::class, 'index'])->name('users');
+        Route::get('/users/export', [BackofficeUserController::class, 'export'])->name('users.export');
+        Route::get('/users/export/pdf', [BackofficeUserController::class, 'exportAllPdf'])->name('users.export.pdf');
+        Route::get('/users/{user}', [BackofficeUserController::class, 'show'])->name('users.show');
+        Route::get('/users/{user}/export', [BackofficeUserController::class, 'exportUser'])->name('users.export.user');
+        Route::get('/users/{user}/export/pdf', [BackofficeUserController::class, 'exportUserPdf'])->name('users.export.user.pdf');
+        Route::get('/users/{user}/edit', [BackofficeUserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [BackofficeUserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [BackofficeUserController::class, 'destroy'])->name('users.destroy');
     });
