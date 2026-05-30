@@ -78,10 +78,13 @@ public function submit(Request $request)
     $recommendationSlot = $this->callFlaskApi($payload);
 
     // 6. CARI RECOMMENDATION BERDASARKAN SLOT
-    // Pastikan recommendations table punya kolom yang bisa di-match
-    // Sesuaikan kolom 'name' atau 'label' dengan yang ada di DB kamu
-    $recommendation = Recommendation::where('name', $recommendationSlot)->first()
-        ?? Recommendation::find(1);  // fallback kalau Flask gagal
+    Log::info('Flask returned slot: ' . $recommendationSlot);
+    Log::info('Recommendations in DB: ', Recommendation::pluck('prefered_study_time')->toArray());
+
+    $recommendation = Recommendation::where('prefered_study_time', $recommendationSlot)->first()
+    ?? Recommendation::find(1);
+
+    Log::info('Matched recommendation ID: ' . $recommendation->id . ' prefered_study_time: ' . $recommendation->prefered_study_time);
 
     // 7. SIMPAN RESULT
     Result::create([
