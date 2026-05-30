@@ -63,7 +63,11 @@ class AuthController extends Controller
         $remember = $request->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
+                // dd('LOGIN CONTROLLER DIPANGGIL');
+
             $request->session()->regenerate();
+
+            // dd(session()->all());
 
             // add untuk remember me, jika checkbox remember me dicentang maka session akan bertahan selama 7 hari
             // function remember()
@@ -86,6 +90,13 @@ class AuthController extends Controller
                 return redirect()->intended(route('backoffice.index'));
             }
 
+            // return redirect()->route('dashboard');
+            // Jika user berasal dari onboarding/pretest
+            if (session()->has('pretest_done')) {
+                // dd('PRETEST DETECTED');
+                return redirect()->route('student.index');
+            }
+            // Default redirect
             return redirect()->intended(route('dashboard'));
         }
 
@@ -102,5 +113,29 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('dashboard');
+    }
+
+    // Di RegisteredUserController (atau AuthController) — setelah user berhasil dibuat:
+
+    protected function registered(Request $request, $user)
+    {
+        if (session()->has('pretest_answers')) {
+            // Simpan jawaban pretest ke DB
+            $attempt = TestAttempt::create([
+                'user_id' => $user->id,
+                'type' => 'pretest', // ← tambah kolom ini di migration
+                'started_at' => now(),
+                'finished_at' => now(),
+            ]);
+            foreach (session('pretest_answers') as $questionId => $answer) {
+                Answer::create([
+                    'question_id' => $questionId,
+                    'test_attempt_id' => $attempt->id,
+                    'answer' => $answer,
+                ]);
+            }
+            session()->forget(['pretest_answers', 'pretest_done']);
+        }
+        return redirect()->route('student.index');
     }
 }

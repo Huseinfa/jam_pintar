@@ -11,14 +11,14 @@ class QuestionController extends Controller
     // method untuk menampilkan semua question
     public function index()
     {
-        $questions = Question::all();
+        $questions = Question::oldest()->paginate(10);
 
-        return view('pages.backoffice.question', compact('questions'));
+        return view('pages.backoffice.questions.question', compact('questions'));
     }
 
     public function create()
     {
-        return view('pages.backoffice.question_create');
+        return view('pages.backoffice.questions.question_create');
     }
 
     public function store(Request $request)
@@ -27,7 +27,7 @@ class QuestionController extends Controller
         $validatedData = $request->validate([
             'question_text' => 'required|string',
 
-            'question_type' => 'required|in:kuisioner,feedback',
+            'question_type' => 'required|in:kuisioner,feedback,pretest',
 
             'option' => 'nullable|string',
 
@@ -61,7 +61,7 @@ class QuestionController extends Controller
     // EDIT
     public function edit(Question $question)
     {
-        return view('pages.backoffice.question_edit', compact('question'));
+        return view('pages.backoffice.questions.question_edit', compact('question'));
     }
 
     // UPDATE
@@ -69,7 +69,7 @@ class QuestionController extends Controller
     {
         $validated = $request->validate([
             'question_text' => 'required',
-            'question_type' => 'required|in:kuisioner,feedback',
+            'question_type' => 'required|in:kuisioner,feedback,pretest',
             'answer_type' => 'required|in:choice,essay',
             'option' => 'nullable|string',
         ]);
@@ -93,6 +93,6 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         // show detail question
-        return view('pages.backoffice.question_show', compact('question'));
+        return view('pages.backoffice.questions.question_show', compact('question'));
     }
 }

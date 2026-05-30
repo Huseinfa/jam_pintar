@@ -6,6 +6,7 @@ use App\Models\FeedbackInvitation;
 use App\Models\Question;
 use App\Models\Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -60,12 +61,12 @@ class FeedbackController extends Controller
         // Save jawaban ke tabel answers
         foreach ($feedbackQuestions as $question) {
             $answerText = $request->input("answer.{$question->id}");
-            
+
             // Delete jawaban lama jika ada
             Answer::where('question_id', $question->id)
                 ->where('test_attempt_id', $invitation->test_attempt_id)
                 ->delete();
-            
+
             // Create jawaban baru
             Answer::create([
                 'question_id' => $question->id,
@@ -80,7 +81,7 @@ class FeedbackController extends Controller
     public function listPendingReminders(): View
     {
         $user = auth()->user();
-        
+
         // Ambil feedback invitations yang belum diisi
         $pendingFeedbacks = $user->feedbackInvitations()
             ->where('email_sent_at', '!=', null)

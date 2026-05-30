@@ -16,6 +16,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\FeedbackResultController;
 use App\Http\Controllers\CityController as BackofficeCityController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
@@ -56,6 +58,11 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::get('/feedback/{token}', [FeedbackController::class, 'showForm'])->middleware('auth')->name('feedback.form');  // Require auth
 Route::post('/feedback/{token}', [FeedbackController::class, 'submitFeedback'])->middleware('auth')->name('feedback.submit');
 
+// route untuk onboarding questionenr sebelum login
+Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+Route::post('/onboarding/submit', [OnboardingController::class, 'submit'])->name('pretest.submit');
+
+
 // ─── Student Routes (Authenticated Only) ───────────────────────────────────────
 
 Route::prefix('student')
@@ -77,7 +84,7 @@ Route::get('/result/{attemptId}', [ResultController::class, 'downloadPdf'])->nam
 // ─── Backoffice (admin only) ───────────────────────────────────────────────────
 
 Route::prefix('backoffice')
-    ->middleware(['auth', AdminMiddleware::class])
+    // ->middleware(['auth', AdminMiddleware::class])
     ->name('backoffice.')
     ->group(function () {
         Route::get('/', [BackofficeController::class, 'index'])->name('index');
@@ -108,4 +115,14 @@ Route::prefix('backoffice')
         Route::get('/users/{user}/edit', [BackofficeUserController::class, 'edit'])->name('users.edit');
         Route::put('/users/{user}', [BackofficeUserController::class, 'update'])->name('users.update');
         Route::delete('/users/{user}', [BackofficeUserController::class, 'destroy'])->name('users.destroy');
+
+        // feedback
+        Route::get('/feedback-result', [FeedbackResultController::class, 'index'])
+            ->name('feedback_result');
+
+        Route::get('/feedback-result/export', [FeedbackResultController::class, 'export'])
+            ->name('feedback_result.export');
+
+        Route::get('/feedback-result/{testAttempt}', [FeedbackResultController::class, 'show'])
+            ->name('feedback_result.show');
     });
