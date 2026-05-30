@@ -17,14 +17,9 @@ class TestController extends Controller
     public function index(): View
     {
         // Try to get questions with type 'test'
-        $questions = Question::where('question_type', 'test')
+        $questions = Question::where('question_type', 'kuisioner')
             ->limit(10)
             ->get();
-
-        // Fallback: if no 'test' type, get any questions
-        if ($questions->isEmpty()) {
-            $questions = Question::limit(10)->get();
-        }
 
         // // pastikan admin tidak boleh mengikui tes dan hanya student saja
         // if(auth()->check() && auth()->user()->isAdmin()) {
@@ -32,10 +27,11 @@ class TestController extends Controller
         // }
 
         return view('pages.student.test', [
-            'questions' => $questions,
-            'totalQuestions' => $questions->count(),
-        ]);
-    }
+        'questions'      => $questions,
+        'totalQuestions' => $questions->count(),
+    ]);
+}
+
 public function submit(Request $request)
 {
     $request->validate([

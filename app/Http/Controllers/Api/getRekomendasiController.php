@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class GetRekomendasiController extends Controller
+class getRekomendasiController extends Controller
 {
     public function getRekomendasi(Request $request)
     {
