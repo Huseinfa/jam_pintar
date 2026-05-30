@@ -19,6 +19,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\FeedbackResultController;
 use App\Http\Controllers\CityController as BackofficeCityController;
+use App\Http\Controllers\Api\GetRekomendasiController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
 
@@ -76,6 +77,14 @@ Route::prefix('student')
         Route::get('/feedback/reminders', [FeedbackController::class, 'listPendingReminders'])->name('feedback.reminders');
         // try and eror route untuk google calendar
         Route::get('/calendar/{result}', [ResultController::class, 'googleCalendar'])->name('calendar');
+        Route::post('/rekomendasi', [GetRekomendasiController::class, 'getRekomendasi']);
+        Route::get('/calendar/{result}', [ResultController::class, 'googleCalendar'])->name('calendar');
+        Route::get('/form-rekomendasi', function() {
+    return view('pages.student.form-rekomendasi');
+    
+});
+
+
     });
 
 // routeuntuk menampilkan hasil rekomendasi berdasarkan test attempt id
