@@ -11,94 +11,97 @@ class QuestionSeeder extends Seeder
     public function run(): void
     {
         DB::table('questions')->insert([
+
+            // ── Q1 → study_hours_weekly ──────────────────────────────────────
             [
-                'question_text' => 'Jika kamu diberi tugas berat secara mendadak, apa yang kamu rasakan?',
+                'question_text' => 'Berapa total jam kamu belajar dalam seminggu (di luar jam kuliah)?',
                 'question_type' => 'kuisioner',
-                'option'        => json_encode(['Semangat', 'Lemas', 'Mengantuk', 'Biasa Saja']),
+                'option'        => json_encode([
+                    'Kurang dari 5 jam',
+                    '5–10 jam',
+                    '10–20 jam',
+                    'Lebih dari 20 jam',
+                ]),
                 'answer_type'   => 'choice',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+
+            // ── Q2 → organization_level ──────────────────────────────────────
             [
-                'question_text' => 'Pilih gambar yang paling menggambarkan dirimu saat belajar:',
+                'question_text' => 'Seberapa terorganisir cara kamu merencanakan jadwal belajar?',
                 'question_type' => 'kuisioner',
-                'option'        => json_encode(['/img/question/OptionExmpl1.png', '/img/question/OptionExmpl2.png', '/img/question/OptionExmpl3.png', '/img/question/OptionExmpl4.png']),
+                'option'        => json_encode([
+                    'Tidak terorganisir sama sekali',
+                    'Kurang terorganisir',
+                    'Cukup terorganisir',
+                    'Sangat terorganisir',
+                ]),
                 'answer_type'   => 'choice',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+
+            // ── Q3 → procrastination_level ───────────────────────────────────
             [
-                'question_text' => 'Bagaimana kamu menangani stres akademik?',
+                'question_text' => 'Seberapa sering kamu menunda-nunda tugas atau belajar?',
                 'question_type' => 'kuisioner',
-                'option'        => json_encode(['Istirahat cukup', 'Berolahraga', 'Curhat ke teman', 'Fokus pada tugas']),
+                'option'        => json_encode([
+                    'Hampir tidak pernah',
+                    'Jarang',
+                    'Kadang-kadang',
+                    'Sering',
+                ]),
                 'answer_type'   => 'choice',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+
+            // ── Q4 → uses_study_aids ─────────────────────────────────────────
             [
-                'question_text' => 'Bagaimana kamu menangani stres akademik?',
+                'question_text' => 'Apakah kamu menggunakan alat bantu belajar seperti flashcard, mind map, ringkasan, atau aplikasi belajar?',
                 'question_type' => 'kuisioner',
-                'option'        => json_encode(['Istirahat cukup', 'Berolahraga', 'Curhat ke teman', 'Fokus pada tugas']),
+                'option'        => json_encode([
+                    'Tidak pernah',
+                    'Jarang',
+                    'Kadang-kadang',
+                    'Selalu',
+                ]),
                 'answer_type'   => 'choice',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+
+            // ── Q5 → study_location ──────────────────────────────────────────
             [
-                'question_text' => 'Pilih suasana yang paling mendukung produktivitasmu:',
+                'question_text' => 'Di mana kamu paling sering belajar?',
                 'question_type' => 'kuisioner',
-                'option'        => json_encode(['/img/question/OptionExmpl1.png', '/img/question/OptionExmpl2.png', '/img/question/OptionExmpl3.png', '/img/question/OptionExmpl4.png']),
+                'option'        => json_encode([
+                    'Rumah/Kos',
+                    'Perpustakaan',
+                    'Kafe',
+                    'Kampus (luar kelas)',
+                ]),
                 'answer_type'   => 'choice',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+
+            // ── Q6 → study_method ────────────────────────────────────────────
             [
-                'question_text' => 'Apa tipe pelajar yang kamu miliki?',
+                'question_text' => 'Metode belajar mana yang paling cocok untukmu?',
                 'question_type' => 'kuisioner',
-                'option'        => json_encode(['Visual', 'Auditori', 'Kinestik', 'Membaca/Menulis']),
+                'option'        => json_encode([
+                    'Visual (diagram, video, warna)',
+                    'Auditori (rekaman, diskusi)',
+                    'Kinestetik (praktik langsung)',
+                    'Membaca/Menulis (catatan, buku)',
+                ]),
                 'answer_type'   => 'choice',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
-            [
-                'question_text' => 'Pilih gaya belajar yang paling sesuai:',
-                'question_type' => 'kuisioner',
-                'option'        => json_encode(['/img/question/OptionExmpl1.png', '/img/question/OptionExmpl2.png', '/img/question/OptionExmpl3.png', '/img/question/OptionExmpl4.png']),
-                'answer_type'   => 'choice',
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
-            [
-                'question_text' => 'Preferensi waktu belajar terbaikmu?',
-                'question_type' => 'kuisioner',
-                'option'        => json_encode(['Pagi', 'Siang', 'Malam', 'Tengah malam']),
-                'answer_type'   => 'choice',
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
-            [
-                'question_text' => 'Pilih metode belajar yang paling efektif untukmu:',
-                'question_type' => 'kuisioner',
-                'option'        => json_encode(['/img/question/OptionExmpl1.png', '/img/question/OptionExmpl2.png', '/img/question/OptionExmpl3.png', '/img/question/OptionExmpl4.png']),
-                'answer_type'   => 'choice',
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
-            [
-                'question_text' => 'Hambatan terbesarmu dalam belajar?',
-                'question_type' => 'kuisioner',
-                'option'        => json_encode(['Konsentrasi', 'Motivasi', 'Memahami materi', 'Manajemen waktu']),
-                'answer_type'   => 'choice',
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
-            [
-                'question_text' => 'Pilih goals belajar yang ingin kamu capai:',
-                'question_type' => 'kuisioner',
-                'option'        => json_encode(['/img/question/OptionExmpl1.png', '/img/question/OptionExmpl2.png', '/img/question/OptionExmpl3.png', '/img/question/OptionExmpl4.png']),
-                'answer_type'   => 'choice',
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
+            
             // pretest question
             [
                 'question_text' => 'Semester berapa kamu saat ini?',
@@ -132,6 +135,7 @@ class QuestionSeeder extends Seeder
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],
+
         ]);
     }
 }

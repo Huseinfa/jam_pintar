@@ -10,20 +10,16 @@ use App\Models\TestAttempt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class TestController extends Controller
 {
     public function index(): View
     {
         // Try to get questions with type 'test'
-        $questions = Question::where('question_type', 'test')
+        $questions = Question::where('question_type', 'kuisioner')
             ->limit(10)
             ->get();
-
-        // Fallback: if no 'test' type, get any questions
-        if ($questions->isEmpty()) {
-            $questions = Question::limit(10)->get();
-        }
 
         // // pastikan admin tidak boleh mengikui tes dan hanya student saja
         // if(auth()->check() && auth()->user()->isAdmin()) {
@@ -31,49 +27,96 @@ class TestController extends Controller
         // }
 
         return view('pages.student.test', [
-            'questions' => $questions,
-            'totalQuestions' => $questions->count(),
+        'questions'      => $questions,
+        'totalQuestions' => $questions->count(),
+    ]);
+}
+
+public function submit(Request $request)
+{
+    $request->validate([
+        'answers' => 'required|array',
+    ]);
+
+    // 1. SIMPAN TEST ATTEMPT
+    $testAttempt = TestAttempt::create([
+        'user_id'     => Auth::id(),
+        'started_at'  => now(),
+        'finished_at' => now(),
+    ]);
+
+    // 2. SIMPAN JAWABAN
+    foreach ($request->answers as $questionId => $answer) {
+        Answer::create([
+            'question_id'     => $questionId,
+            'test_attempt_id' => $testAttempt->id,
+            'answer'          => $answer,
         ]);
     }
 
-    public function submit(Request $request)
-    {
-        // VALIDASI
-        $request->validate([
-            'answers' => 'required|array',
-        ]);
+    // 3. PETAKAN JAWABAN KE FITUR EDAS
+        $answerMap = $request->answers;
 
-        // 1. SIMPAN TEST ATTEMPT
-        $testAttempt = TestAttempt::create([
-            // 'user_id' => Auth::id(),
-            'user_id' => Auth::id(), 'started_at' => now(), 'finished_at' => now(),
-        ]);
+        $features = [
+            'study_hours_weekly'    => $answerMap[1] ?? null,  // Q1
+            'organization_level'    => $answerMap[2] ?? null,  // Q2
+            'procrastination_level' => $answerMap[3] ?? null,  // Q3
+            'uses_study_aids'       => $answerMap[4] ?? null,  // Q4
+            'study_location'        => $answerMap[5] ?? null,  // Q5
+            'study_method'          => $answerMap[6] ?? null,  // Q6
+        ];
 
-        // 2. SIMPAN JAWABAN
-        foreach ($request->answers as $questionId => $answer) {
+    // 4. AMBIL DATA USER (github_username dari profile)
+    $user = Auth::user();
 
-            Answer::create([
-                'question_id' => $questionId,
-                'test_attempt_id' => $testAttempt->id,
-                'answer' => $answer,
-            ]);
+    $payload = array_merge($features, [
+        'github_username'  => $user->github_username ?? '',
+        'usual_study_hour' => null,  // bisa ditambah nanti dari profile
+    ]);
+
+    // 5. PANGGIL FLASK API
+    $recommendationSlot = $this->callFlaskApi($payload);
+
+    // 6. CARI RECOMMENDATION BERDASARKAN SLOT
+    Log::info('Flask returned slot: ' . $recommendationSlot);
+    Log::info('Recommendations in DB: ', Recommendation::pluck('prefered_study_time')->toArray());
+
+    $recommendation = Recommendation::where('prefered_study_time', $recommendationSlot)->first()
+    ?? Recommendation::find(1);
+
+    Log::info('Matched recommendation ID: ' . $recommendation->id . ' prefered_study_time: ' . $recommendation->prefered_study_time);
+
+    // 7. SIMPAN RESULT
+    Result::create([
+        'test_attempt_id'   => $testAttempt->id,
+        'recommendation_id' => $recommendation->id,
+        'email_status'      => 'pending',
+    ]);
+
+    return response()->json([
+        'success'    => true,
+        'attempt_id' => $testAttempt->id,
+    ]);
+}
+
+// ─── Helper: panggil Flask ───────────────────────────────────────────────────
+
+private function callFlaskApi(array $payload): string
+{
+    try {
+        $response = \Illuminate\Support\Facades\Http::timeout(10)
+            ->post('http://127.0.0.1:5000/recommend', $payload);
+
+        if ($response->successful()) {
+            $data = $response->json();
+            return $data['recommendation'] ?? 'Morning';
+        } else {
+            Log::error('Flask API error: ' . $response->body());
+            return 'Morning'; // ensure a string is always returned
         }
-
-        // 3. AMBIL REKOMENDASI SEMENTARA (DUMMY)
-        // nanti diganti hasil python
-        $recommendation = Recommendation::find(1);
-
-        // 4. SIMPAN RESULT
-        Result::create([
-            'test_attempt_id' => $testAttempt->id,
-            'recommendation_id' => $recommendation->id,
-            'email_status' => 'pending',
-        ]);
-
-        // 5. RETURN RESPONSE
-        return response()->json([
-            'success' => true,
-            'attempt_id' => $testAttempt->id,
-        ]);
+    } catch (\Exception $e) {
+        Log::error('Flask API exception: ' . $e->getMessage());
+        return 'Morning';
+        }
     }
 }

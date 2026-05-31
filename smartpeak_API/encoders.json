@@ -1,0 +1,18 @@
+{
+  "location": {
+    "Cafe": 0,
+    "Classroom": 1,
+    "Home": 2,
+    "Library": 3,
+    "Online": 4,
+    "Study Group": 5
+  },
+  "method": {
+    "Flashcards": 0,
+    "Group Study": 1,
+    "Note-taking": 2,
+    "Practice Problems": 3,
+    "Reading": 4,
+    "Video Tutorials": 5
+  }
+}
