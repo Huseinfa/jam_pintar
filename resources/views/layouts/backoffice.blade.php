@@ -144,6 +144,16 @@
                     Feedback Result
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{ route('backoffice.content') }}"
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.content') ? 'active-sidebar' : '' }}">
+
+                    <i class="bi bi-file-earmark-text me-2"></i>
+                    Konten
+                </a>
+            </li>
+
         </ul>
 
         <div class="mt-auto">
