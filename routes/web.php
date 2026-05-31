@@ -88,7 +88,8 @@ Route::prefix('student')
     });
 
 // routeuntuk menampilkan hasil rekomendasi berdasarkan test attempt id
-Route::get('/result/{attemptId}', [ResultController::class, 'downloadPdf'])->name('result.pdf');
+Route::get('/result/{attemptId}',          [ResultController::class, 'show'])->name('result.show');
+Route::get('/result/{attemptId}/download', [ResultController::class, 'downloadPdf'])->name('result.pdf');
 
 // ─── Backoffice (admin only) ───────────────────────────────────────────────────
 
