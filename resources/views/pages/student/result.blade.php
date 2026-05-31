@@ -27,7 +27,7 @@
                     <div style="background: #FDC334; border-radius: 16px; padding: 24px; margin-bottom: 32px;">
                         <p class="mb-1" style="font-size: 0.9rem; color: #2A3141;">Waktu Belajar Optimal Kamu</p>
                         <h2 class="fw-bold mb-1" style="font-size: 2rem; color: #2A3141;">
-                            {{ $result->recommendation->name ?? 'Morning' }}
+                                {{ $result->recommendation->prefered_study_time ?? '-' }}
                         </h2>
                         <p style="color: #2A3141; font-size: 0.95rem;">
                             {{ $result->recommendation->study_hour_start ?? '' }} –
