@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['carousel', 'intro']);
+            $table->enum('type', ['Hero Section', 'Problem Section', 'Value Section', 'How it Works', 'CTA', 'About Section']);
             $table->string('title');
             $table->text('text')->nullable();
             $table->string('image')->nullable();
