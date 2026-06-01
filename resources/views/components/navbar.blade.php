@@ -19,21 +19,21 @@
 
                 <!-- Home -->
                 <li class="nav-item">
-                    <a class="nav-link mx-2 nav-link-custom active" href="#home">
+                    <a class="nav-link mx-2 nav-link-custom active" href="{{ route('dashboard') }}#home">
                         Home
                     </a>
                 </li>
 
                 <!-- How It Works -->
                 <li class="nav-item">
-                    <a class="nav-link mx-2 nav-link-custom" href="#method">
+                    <a class="nav-link mx-2 nav-link-custom" href="{{ route('dashboard') }}#method">
                         Steps
                     </a>
                 </li>
 
                 <!-- About -->
                 <li class="nav-item">
-                    <a class="nav-link mx-2 nav-link-custom" href="#about">
+                    <a class="nav-link mx-2 nav-link-custom" href="{{ route('dashboard') }}#about">
                         About
                     </a>
                 </li>
@@ -47,11 +47,11 @@
                         <i class="bi bi-person-circle me-2"></i>{{ auth()->user()->name ?? auth()->user()->email }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
+                        {{-- <li>
                             <span class="dropdown-item-text small text-muted">
                                 {{ auth()->user()->email }}
                             </span>
-                        </li>
+                        </li> --}}
                         {{-- bagian untuk menuju profil --}}
                         <li>
                             <a class="dropdown-item" href="{{ route('student.profile') }}">

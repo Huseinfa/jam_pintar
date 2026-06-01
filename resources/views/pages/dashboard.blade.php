@@ -25,7 +25,11 @@
                 </p>
 
                 {{-- button --}}
-                <a href="{{ route('student.test') }}" class="btn btn-hero px-4 py-3 rounded-pill">
+                {{-- <a href="{{ route('student.index') }}" class="btn btn-hero px-4 py-3 rounded-pill">
+                    Cari Jam Pintarku
+                </a> --}}
+
+                <a href="{{ route('onboarding') }}" class="btn btn-hero px-4 py-3 rounded-pill">
                     Cari Jam Pintarku
                 </a>
 
@@ -526,4 +530,12 @@
         </script>
     @endif
 
+    @if (request()->query('showLogin')) 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                var modal = new bootstrap.Modal( document.getElementById('modalLogin') ); modal.show(); // Hapus query parameter setelah modal muncul 
+                window.history.replaceState({}, document.title, window.location.pathname); 
+            }); 
+        </script>
+    @endif
 @endsection

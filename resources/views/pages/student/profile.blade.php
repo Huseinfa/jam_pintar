@@ -9,6 +9,9 @@
         background-color: #FDC334;
     }
 
+    .container {
+        padding-top: 85px;
+    }
     /* =========================
         PROFILE HEADER
     ========================== */
@@ -192,7 +195,7 @@
 }
 </style>
 
-<div class="container py-4">
+<div class="container pb-3">
 
     {{-- PROFILE HEADER --}}
     <div class="card shadow-sm profile-card border-0">
@@ -224,8 +227,30 @@
         </div>
     </div>
 
+    {{-- FEEDBACK REMINDER SECTION --}}
+    @if($pendingFeedbacks > 0)
+    <div class="card shadow-sm border-0 mt-4" style="border-radius: 20px; border-left: 5px solid #F5A623; overflow: hidden;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="fw-bold mb-2">
+                        <i class="fas fa-envelope-circle-check" style="color: #F5A623;"></i>
+                        Feedback Tertunda
+                    </h5>
+                    <p class="text-muted mb-0">
+                        Anda memiliki <strong>{{ $pendingFeedbacks }}</strong> feedback yang belum diselesaikan. Feedback Anda sangat membantu kami untuk berkembang!
+                    </p>
+                </div>
+                <a href="{{ route('student.feedback.reminders') }}" class="btn" style="background: #F5A623; color: white; border-radius: 50px; white-space: nowrap;">
+                    Lihat Semua →
+                </a>
+            </div>
+        </div>
+    </div>
+    @endif
+
     {{-- DETAIL PROFILE --}}
-    <div class="card shadow-sm profile-detail-card border-0">
+    <div class="card shadow-sm profile-detail-card border-0 mt-4">
         {{-- Nama --}}
         <div class="mb-4">
             <label class="form-label">Nama Lengkap</label>

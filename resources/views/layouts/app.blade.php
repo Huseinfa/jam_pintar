@@ -84,10 +84,49 @@
         @include('components.footer')
     </div>
 
-    {{-- Modal Login --}}
-    @include('auth.login')
-    {{-- Modal Register --}}
-    @include('auth.register')
+    {{-- Modal Login & Register (hidden when success modal shows) --}}
+    @if (!session('success'))
+        @include('auth.login')
+        {{-- Modal Register --}}
+        @include('auth.register')
+    @endif
+
+    {{-- Success Modal for Feedback --}}
+    @if (session('success'))
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+                    <div class="modal-body text-center p-5">
+                        <div style="margin: 20px 0;">
+                            <div style="width: 100px; height: 100px; margin: 0 auto; background: #28a745; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="fw-bold mt-3 mb-2">Terima Kasih! 🎉</h4>
+                        <p class="text-muted mb-0">{{ session('success') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('successModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                modal.show();
+                
+                // Close modal and redirect after 2 seconds
+                setTimeout(function() {
+                    modal.hide();
+                    window.location.href = "{{ route('dashboard') }}";
+                }, 2000);
+            });
+        </script>
+    @endif
 
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

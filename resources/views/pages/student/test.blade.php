@@ -85,6 +85,8 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        padding-top: 85px;
+
     }
     
     .quiz-content {

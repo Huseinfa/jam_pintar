@@ -14,7 +14,9 @@ class ProfileController extends Controller
     // }
     public function index()
     {
-        $user = auth()->user()->load('city');
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+        $user->load('city');
 
         $latestAttempt = $user->testAttempts()
             ->with('result.recommendation')
@@ -23,9 +25,19 @@ class ProfileController extends Controller
 
         $result = $latestAttempt?->result;
 
+        // Ambil pending feedbacks - feedback yang belum disubmit
+        $pendingFeedbacks = $user->feedbackInvitations()
+            ->where('email_sent_at', '!=', null)
+            ->get()
+            ->filter(function ($invitation) {
+                return !$invitation->isFeedbackSubmitted();
+            })
+            ->count();
+
         return view('pages.student.profile', compact(
             'user',
-            'result'
+            'result',
+            'pendingFeedbacks'
         ));
     }
 }

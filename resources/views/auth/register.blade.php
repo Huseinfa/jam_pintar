@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="github_username" class="form-label fw-semibold small">Username GitHub <span class="text-muted">(Opsional)</span></label>
+                            <label for="github_username" class="form-label fw-semibold small">Username GitHub</label>
                             <div class="input-group">
                                 <span class="input-group-text" style="border-radius: 50px 0 0 50px; border: 1.5px solid #2A3141; background: #f8f9fa;">
                                     <i class="fab fa-github"></i>
@@ -93,6 +93,7 @@
                                     name="github_username"
                                     value="{{ old('github_username') }}"
                                     placeholder="username-github"
+                                    required
                                     style="border-radius: 0 50px 50px 0; border: 1.5px solid #2A3141; border-left: none; font-size: 0.95rem;"
                                 >
                             </div>
@@ -232,6 +233,23 @@
                                 placeholder="mm/dd/yyyy"
                                 style="border-radius: 50px; border: 1.5px solid #2A3141; font-size: 0.95rem;"
                             >
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    id="allow_feedback_emails" 
+                                    name="allow_feedback_emails" 
+                                    value="1"
+                                    {{ old('allow_feedback_emails', 1) ? 'checked' : '' }}
+                                    style="cursor: pointer;">
+                                <label class="form-check-label small" for="allow_feedback_emails" style="cursor: pointer;">
+                                    Izinkan kami mengirimkan email feedback dan reminder untuk membantu kami meningkatkan aplikasi
+                                    <i class="fas fa-info-circle text-muted" style="font-size: 0.8rem;" title="Kami akan mengirim email feedback setelah 7 hari setelah tes selesai"></i>
+                                </label>
+                            </div>
                         </div>
 
                         <div class="col-12">
