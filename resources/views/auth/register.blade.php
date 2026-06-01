@@ -155,21 +155,31 @@
 
                             {{-- Rules password --}}
                             <div id="passwordRules">
+     
 
                                 <div id="rule-length" class="rule-item">
-                                    ❌ Minimal 8 karakter
+                                    <span class="rule-icon">❌</span>
+                                    <span class="rule-text">Minimal 8 karakter</span>
                                 </div>
 
                                 <div id="rule-uppercase" class="rule-item">
-                                    ❌ Huruf besar
+                                    <span class="rule-icon">❌</span>
+                                    <span class="rule-text">Huruf besar</span>
                                 </div>
 
                                 <div id="rule-lowercase" class="rule-item">
-                                    ❌ Huruf kecil
+                                    <span class="rule-icon">❌</span>
+                                    <span class="rule-text">Huruf kecil</span>
                                 </div>
 
                                 <div id="rule-number" class="rule-item">
-                                    ❌ Angka
+                                    <span class="rule-icon">❌</span>
+                                    <span class="rule-text">Angka</span>
+                                </div>
+
+                                <div id="rule-symbol" class="rule-item">
+                                    <span class="rule-icon">❌</span>
+                                    <span class="rule-text">Mengandung simbol seperti !@#$%</span>
                                 </div>
 
                             </div>
@@ -532,7 +542,8 @@ document.addEventListener('DOMContentLoaded', function () {
             length: password.length >= 8,
             uppercase: /[A-Z]/.test(password),
             lowercase: /[a-z]/.test(password),
-            number: /[0-9]/.test(password)
+            number: /[0-9]/.test(password),
+            symbol: /[!@#\$%\^&\*()_+\-=[\]{};':"\\|,.<>\/?`~]/.test(password)
         };
         return rules;
     }
@@ -562,7 +573,8 @@ document.addEventListener('DOMContentLoaded', function () {
             'rule-length': { valid: rules.length, text: 'Minimal 8 karakter' },
             'rule-uppercase': { valid: rules.uppercase, text: 'Huruf besar' },
             'rule-lowercase': { valid: rules.lowercase, text: 'Huruf kecil' },
-            'rule-number': { valid: rules.number, text: 'Angka' }
+            'rule-number': { valid: rules.number, text: 'Angka' },
+            'rule-symbol': { valid: rules.symbol, text: 'Mengandung simbol seperti !@#$%' }
         };
 
         Object.entries(ruleElements).forEach(([id, rule]) => {
