@@ -20,6 +20,7 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\FeedbackResultController;
 use App\Http\Controllers\CityController as BackofficeCityController;
 use App\Http\Controllers\Api\GetRekomendasiController;
+use App\Http\Controllers\ContentController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
 
@@ -135,4 +136,9 @@ Route::prefix('backoffice')
 
         Route::get('/feedback-result/{testAttempt}', [FeedbackResultController::class, 'show'])
             ->name('feedback_result.show');
-    });
+
+        // content
+        Route::get('/content', [ContentController::class, 'index'])
+            ->name('content');
+        Route::resource('contents', ContentController::class);
+    });    

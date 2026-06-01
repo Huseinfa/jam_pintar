@@ -12,7 +12,7 @@ class ContentSeeder extends Seeder
     {
         DB::table('contents')->insert([
             [
-                'type'       => 'carousel',
+                'type'       => 'Hero Section',
                 'title'      => 'Selamat Datang',
                 'text'       => 'Kenali waktu belajar terbaikmu',
                 'image'      => 'carousel1.jpg',
@@ -21,7 +21,7 @@ class ContentSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'type'       => 'intro',
+                'type'       => 'Hero Section',
                 'title'      => 'Tentang Tes',
                 'text'       => 'Tes ini membantu menentukan chronotype kamu',
                 'image'      => 'intro.jpg',
