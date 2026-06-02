@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\TestAttempt;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Exports\FeedbackExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FeedbackResultController extends Controller
@@ -52,33 +55,41 @@ class FeedbackResultController extends Controller
 
     public function show(TestAttempt $testAttempt): View
     {
-        $feedbackAnswers = $testAttempt->answers()
-            ->with('question')
-            ->whereHas('question', function ($q) {
-                $q->where(
-                    'question_type',
-                    'feedback'
-                );
-            })
-            ->get();
+        $testAttempt->load([
+            'answers.question',
+            'result.recommendation'
+        ]);
+
+        $feedbackAnswers = $testAttempt->answers
+            ->filter(fn($a) => $a->question && $a->question->question_type === 'feedback');
 
         $user = $testAttempt->user;
-        $answers = $feedbackAnswers;
+
         $testDate = $testAttempt->created_at;
         $feedbackDate = $testAttempt->updated_at;
-        $jamPintar = null;
-        $kategori = null;
 
-        return view(
-            'pages.backoffice.feedback_result.show',
-            [
-                'user' => $user,
-                'answers' => $answers,
-                'testDate' => $testDate,
-                'feedbackDate' => $feedbackDate,
-                'jamPintar' => $jamPintar,
-                'kategori' => $kategori,
-            ]
-        );
+        $rec = $testAttempt->result?->recommendation;
+
+        $jamPintar = $rec
+            ? \Carbon\Carbon::parse($rec->study_hour_start)->format('H:i') .
+            ' - ' .
+            \Carbon\Carbon::parse($rec->study_hour_end)->format('H:i')
+            : '-';
+
+        $kategori = $rec->prefered_study_time ?? '-';
+
+        return view('pages.backoffice.feedback_result.show', [
+            'user' => $user,
+            'answers' => $feedbackAnswers,
+            'testDate' => $testDate,
+            'feedbackDate' => $feedbackDate,
+            'jamPintar' => $jamPintar,
+            'kategori' => $kategori,
+        ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new FeedbackExport, 'feedback-result.xlsx');
     }
 }

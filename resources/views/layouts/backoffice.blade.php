@@ -36,7 +36,8 @@
             top: 0;
             left: 0;
             z-index: 100;
-            background-color: #0d6efd;
+            background: #FA5B19;
+
         }
 
         #main-wrapper {
@@ -99,19 +100,19 @@
             {{-- Dashboard --}}
             <li class="nav-item">
                 <a href="{{ route('backoffice.index') }}"
-                class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.index') ? 'active-sidebar' : '' }}">
-                
-                <i class="bi bi-house me-2"></i>
-                Dashboard
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('backoffice.users') }}"
-            class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.users*') ? 'active-sidebar' : '' }}">
-                <i class="bi bi-people me-2"></i>
-                Pengguna
-            </a>
-        </li>
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.index') ? 'active-sidebar' : '' }}">
+
+                    <i class="bi bi-house me-2"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('backoffice.users') }}"
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.users*') ? 'active-sidebar' : '' }}">
+                    <i class="bi bi-people me-2"></i>
+                    Pengguna
+                </a>
+            </li>
 
 
             {{-- CRUD Question --}}
@@ -133,7 +134,7 @@
                     Kota
                 </a>
             </li>
-            
+
             {{-- Users management --}}
             {{-- RESULT Feedback --}}
             <li class="nav-item">

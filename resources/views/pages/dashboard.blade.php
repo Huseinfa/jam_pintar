@@ -246,7 +246,6 @@
     </section>
 
     <style>
-
         .hero-section {
             display: flex;
             min-height: 95vh;
@@ -270,7 +269,7 @@
             width: 100%;
             height: 140px;
         }
-        
+
 
         .hero-stats {
             display: flex;
@@ -626,7 +625,7 @@
         }
 
         .time-wrapper {
-            position : relativer;
+            position: relativer;
             margin-top: 3rem;
             margin-bottom: 3.5rem;
         }
@@ -797,12 +796,13 @@
         </script>
     @endif
 
-    @if (request()->query('showLogin')) 
+    @if (request()->query('showLogin'))
         <script>
-            document.addEventListener('DOMContentLoaded', function() { 
-                var modal = new bootstrap.Modal( document.getElementById('modalLogin') ); modal.show(); // Hapus query parameter setelah modal muncul 
-                window.history.replaceState({}, document.title, window.location.pathname); 
-            }); 
+            document.addEventListener('DOMContentLoaded', function() {
+                var modal = new bootstrap.Modal(document.getElementById('modalLogin'));
+                modal.show(); // Hapus query parameter setelah modal muncul 
+                window.history.replaceState({}, document.title, window.location.pathname);
+            });
         </script>
     @endif
 @endsection
