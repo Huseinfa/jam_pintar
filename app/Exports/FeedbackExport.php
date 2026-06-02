@@ -3,25 +3,36 @@
 namespace App\Exports;
 
 use App\Models\TestAttempt;
+use App\Models\Question;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class FeedbackExport implements FromCollection, WithHeadings
 {
+    private $questions;
+
+    public function __construct()
+    {
+        // ambil semua pertanyaan feedback
+        $this->questions = Question::where('question_type', 'feedback')
+            ->orderBy('id')
+            ->get();
+    }
+
     public function headings(): array
     {
-        return [
-            'Nama',
-            'Jam Pintar',
-            'Kategori',
-            'Feedback Date',
-            'Q1',
-            'Q2',
-            'Q3',
-            'Q4',
-            'Rata-rata',
-            'Status',
-        ];
+        return array_merge(
+            [
+                'No',
+                'Nama',
+                'Email',
+                'Tanggal Tes',
+                'Tanggal Feedback',
+                'Jam Pintar',
+                'Kategori',
+            ],
+            $this->questions->map(fn($q) => $q->question_text)->toArray()
+        );
     }
 
     public function collection()
@@ -31,57 +42,46 @@ class FeedbackExport implements FromCollection, WithHeadings
             'result.recommendation',
             'answers.question'
         ])
-        ->get()
-        ->map(function ($attempt) {
+            // 🔥 FILTER USER SAJA (BUKAN ADMIN)
+            ->whereHas('user', function ($q) {
+                $q->where('role', 'user');
+                // kalau pakai is_admin:
+                // $q->where('is_admin', 0);
+            })
+            ->get()
+            ->values()
+            ->map(function ($attempt, $index) {
 
-            $feedbackAnswers =
-                $attempt->answers
-                ->filter(fn($a) =>
-                    $a->question->question_type === 'feedback'
-                )
-                ->values();
+                $user = $attempt->user;
+                $recommendation = $attempt->result->recommendation ?? null;
 
-            $scores =
-                $feedbackAnswers
-                ->pluck('answer')
-                ->filter(fn($v) => is_numeric($v));
+                // mapping jawaban berdasarkan question_id
+                $answers = $attempt->answers
+                    ->filter(function ($a) {
+                        return $a->question && $a->question->question_type === 'feedback';
+                    })
+                    ->keyBy('question_id');
 
-            $avg =
-                $scores->count()
-                ? round($scores->avg(), 1)
-                : 0;
+                $row = [
+                    $index + 1,
+                    $user->name ?? '-',
+                    $user->email ?? '-',
+                    optional($attempt->created_at)->format('d M Y H:i:s'),
+                    optional($attempt->updated_at)->format('d M Y H:i:s'),
 
-            $status =
-                $avg >= 4
-                ? 'Efektif'
-                : ($avg >= 3
-                    ? 'Cukup Efektif'
-                    : 'Kurang Efektif');
+                    $recommendation
+                        ? ($recommendation->study_hour_start . ' - ' . $recommendation->study_hour_end)
+                        : '-',
 
-            return [
-                $attempt->user->name ?? '-',
+                    $recommendation->prefered_study_time ?? '-',
+                ];
 
-                optional($attempt->result->recommendation)
-                    ->study_hour_start
-                . ' - ' .
-                optional($attempt->result->recommendation)
-                    ->study_hour_end,
+                // 🔥 pivot jawaban jadi kolom horizontal
+                foreach ($this->questions as $q) {
+                    $row[] = $answers[$q->id]->answer ?? '-';
+                }
 
-                optional($attempt->result->recommendation)
-                    ->prefered_study_time,
-
-                optional($attempt->created_at)
-                    ->format('d M Y'),
-
-                $feedbackAnswers[0]->answer ?? '-',
-                $feedbackAnswers[1]->answer ?? '-',
-                $feedbackAnswers[2]->answer ?? '-',
-                $feedbackAnswers[3]->answer ?? '-',
-
-                $avg,
-
-                $status,
-            ];
-        });
+                return $row;
+            });
     }
 }

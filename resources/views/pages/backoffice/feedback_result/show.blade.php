@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h2 class="fw-bold mb-1">
+                        <h2 class="fw-bold fs-3 mb-1">
                             Detail Feedback
                         </h2>
                         <p class="text-muted mb-0">
@@ -53,20 +53,27 @@
 
                     <tr>
                         <th>Jam Pintar</th>
-                        <td>{{ $jamPintar }}</td>
+                        <td>
+                            {{ $jamPintar }}
+                        </td>
                     </tr>
 
                     <tr>
                         <th>Kategori</th>
                         <td>
-                            <span class="badge bg-success">
-                                {{ $kategori }}
-                            </span>
+                            @if ($kategori != '-')
+                                <span class="badge kategori-badge">
+                                    {{ $kategori }}
+                                </span>
+                            @else
+                                <span class="badge bg-secondary">-</span>
+                            @endif
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
+
         {{-- Jawaban Feedback --}}
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-light">
@@ -76,7 +83,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
+                    <table class="table table-hover align-middle table-fixed">
                         <thead class="table-light">
                             <tr>
                                 <th width="70">No</th>
@@ -123,3 +130,39 @@
     </div>
 
 @endsection
+
+<style>
+    .kategori-badge {
+        background-color: #8ED8B5;
+        color: #181818 !important;
+        padding: 6px 12px !important;
+        border-radius: 8px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+
+    .table-fixed {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .table-fixed th:nth-child(1),
+    .table-fixed td:nth-child(1) {
+        width: 70px;
+        text-align: center;
+    }
+
+    .table-fixed th:nth-child(2),
+    .table-fixed td:nth-child(2) {
+        width: 55%;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    .table-fixed th:nth-child(3),
+    .table-fixed td:nth-child(3) {
+        width: 45%;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+</style>
