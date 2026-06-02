@@ -129,7 +129,7 @@ Route::prefix('backoffice')
 
         // feedback
         Route::get('/feedback-result', [FeedbackResultController::class, 'index'])
-            ->name('feedback_result');
+            ->name('feedback_result.index');
 
         Route::get('/feedback-result/export', [FeedbackResultController::class, 'export'])
             ->name('feedback_result.export');

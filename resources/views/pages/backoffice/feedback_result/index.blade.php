@@ -125,11 +125,15 @@
                                             $answer->question->question_type === 'feedback',
                                     );
 
+                                    // Check if there are any feedback answers
+                                    $hasFeedback = $feedbackAnswers->count() > 0;
+
+                                    // Try to calculate average from numeric answers if available
                                     $scores = $feedbackAnswers
                                         ->pluck('answer')
                                         ->filter(fn($value) => is_numeric($value));
 
-                                    $average = $scores->count() ? round($scores->avg(), 1) : null;
+                                    $average = $scores->count() ? round($scores->avg(), 1) : ($hasFeedback ? 0 : null);
 
                                 @endphp
 
@@ -167,6 +171,10 @@
                                             <span class="badge bg-secondary">
                                                 Belum Dinilai
                                             </span>
+                                        @elseif($average == 0)
+                                            <span class="badge bg-info">
+                                                Sudah Dinilai
+                                            </span>
                                         @elseif($average >= 4)
                                             <span class="badge bg-success">
                                                 Efektif
@@ -185,7 +193,7 @@
 
                                     <td>
 
-                                        <a href="{{ route('backoffice.feedback_result.show', $feedback->test_attempt_id) }}"
+                                        <a href="{{ route('backoffice.feedback_result.show', $feedback) }}"
                                             class="btn btn-info btn-sm">
                                             <i class="bi bi-eye"></i>
                                         </a>

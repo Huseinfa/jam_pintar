@@ -137,7 +137,7 @@
             {{-- Users management --}}
             {{-- RESULT Feedback --}}
             <li class="nav-item">
-                <a href="{{ route('backoffice.feedback_result') }}"
+                <a href="{{ route('backoffice.feedback_result.index') }}"
                     class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.feedback_result*') ? 'active-sidebar' : '' }}">
 
                     <i class="bi bi-chat-left-text me-2"></i> {{-- Menambahkan ikon chat --}}
