@@ -64,56 +64,38 @@
                                     Tidak ada pertanyaan tersedia
                                 @endif
                             </h2>
-
                             {{-- Answer --}}
                             <div id="answerContainer" class="mb-4">
                                 {{-- Dynamic --}}
                             </div>
-
                             {{-- Progress --}}
                             <div class="progress-section mb-4">
-
                                 <span class="progress-counter" id="questionCounter">
                                     1/{{ $totalQuestions }}
                                 </span>
-
                                 <div class="progress-bar-wrapper">
                                     <div class="progress-bar-filled" id="progressBarFilled" style="width: 0%">
                                     </div>
                                 </div>
-
                             </div>
-
                             {{-- Navigation --}}
                             <div class="d-flex justify-content-between align-items-center">
-
                                 <button class="btn-back" id="prevBtn" onclick="previousQuestion()">
-
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2">
-
                                         <path d="M3 10h10a4 4 0 0 1 4 4v2" />
                                         <polyline points="7 14 3 10 7 6" />
-
                                     </svg>
-
                                 </button>
-
                                 <button class="btn-next" id="nextBtn" onclick="nextQuestion()">
-
                                     <span id="nextBtnText">
                                         Selanjutnya
                                     </span>
-
                                 </button>
-
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
             </div>
 
         </div>
