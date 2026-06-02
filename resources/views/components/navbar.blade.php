@@ -3,8 +3,9 @@
     <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="#" style="color:#2A3141;">
-            <i class="bi bi-moon-stars-fill me-2"></i> SmartPeak
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="#" style="color:#2A3141;">
+            <img src="{{ asset('img/logo2.png') }}" alt="SmartPeak Logo" height="40" class="me-2">
+            SmartPeak
         </a>
 
         <!-- Toggle -->
@@ -43,7 +44,8 @@
             <!-- LOGIN BUTTON / USER PROFILE -->
             @auth
                 <div class="dropdown">
-                    <button class="btn btn-login-custom rounded-pill px-4 dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <button class="btn btn-login-custom rounded-pill px-4 dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown">
                         <i class="bi bi-person-circle me-2"></i>{{ auth()->user()->name ?? auth()->user()->email }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -58,7 +60,9 @@
                                 <i class="bi bi-person me-2"></i>Profile
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <form method="POST" action="{{ route('auth.logout') }}" class="d-inline">
                                 @csrf

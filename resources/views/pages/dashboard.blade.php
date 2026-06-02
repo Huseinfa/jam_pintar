@@ -4,42 +4,73 @@
 
 @section('content')
 
-    <section class="hero-section d-flex align-items-center justify-content-center">
+    <section id="home" class="hero-section d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
 
-        <div id="home" class="container hero-wrapper text-center">
-            <div class="hero-content mx-auto">
+                <div class="col-lg-6 hero-left-content">
+                    <div class="hero-badge mb-2">
+                        <span class="badge-animated">
+                            <span class="typingtext">✨ Temukan Ritme Belajarmu</span>
+                        </span>
+                    </div>
+                    <h1 class="hero-title mb-3">
+                        Kenali <span class="highlight-text">Jam Pintarmu</span>
+                    </h1>
+                    <h2 class="hero-subtitle mb-4">
+                        Tingkatkan Fokus Belajarmu
+                    </h2>
+                    <p class="hero-desc mb-4">
+                        Temukan jam terbaik otakmu untuk belajar lebih fokus,
+                        santai, dan efektif. Lewat kuis seru, kami bantu kamu
+                        kenali ritme belajarmu.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{{ route('onboarding') }}" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
+                            ✨ Cari Jam Pintarku
+                        </a>
+                        {{-- <a href="#problem" class="btn btn-hero-secondary px-4 py-3 rounded-pill">
+                            Pelajari Lebih Lanjut
+                        </a> --}}
+                    </div>
 
-                <!-- Title -->
-                <h1 class="fw-bold hero-title mb-2">
-                    Kenali Jam Pintarmu
-                </h1>
+                </div>
 
-                <h2 class="fw-semibold hero-subtitle mb-4">
-                    Tingkatkan Fokus Belajarmu
-                </h2>
+                <div class="col-lg-6 text-center">
+                    <div class="hero-illustration">
+                        <img src="{{ asset('img/ilustrasi.png') }}" class="img-fluid floating-illustration">
+                        <div class="floating-card card-1">
+                            🧠 Fokus Maksimal
+                        </div>
+                        <div class="floating-card card-2">
+                            ⏰ Jam Optimal
+                        </div>
+                        <div class="floating-card card-3">
+                            📚 Belajar Efektif
+                        </div>
 
-                <!-- Description -->
-                <p class="hero-desc mb-4 fw-medium">
-                    Temukan jam terbaik otakmu untuk belajar lebih fokus, santai, dan efektif.
-                    Lewat kuis seru, kami bantu kamu kenali ritme belajarmu!
-                </p>
-
-                {{-- button --}}
-                {{-- <a href="{{ route('student.index') }}" class="btn btn-hero px-4 py-3 rounded-pill">
-                    Cari Jam Pintarku
-                </a> --}}
-
-                <a href="{{ route('onboarding') }}" class="btn btn-hero px-4 py-3 rounded-pill">
-                    Cari Jam Pintarku
-                </a>
-
+                        <div class="scroll-indicator">
+                            <span class="scroll-badge">
+                                Explore More
+                                <span class="arrow">↓</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
     </section>
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120">
+            <path fill="#f8f9fa" fill-opacity="1"
+                d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z">
+            </path>
+        </svg>
+    </div>
 
     {{-- PROBLEM --}}
-    <section class="problem-section py-5">
+    <section id="problem" class="problem-section py-5">
         <div class="container text-center">
 
             <h2 class="fw-semibold problem-title mb-5">
@@ -91,9 +122,7 @@
                         </p>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section>
 
@@ -198,14 +227,12 @@
                 <!-- Button -->
                 {{-- @auth --}}
 
-                <a class="btn btn-hero px-4 py-3 rounded-pill" href="#home">
-                    Mulai Perjalanan
-                </a>
-                {{-- @else --}}
-                {{-- <button type="button" class="btn btn-hero px-4 py-3 rounded-pill"  href="#home">
+                <div class="hero-buttons">
+                    <a href="#home" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
                         Mulai Perjalanan
-                    </button> --}}
-                {{-- @endauth --}}
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -219,76 +246,306 @@
     </section>
 
     <style>
+
         .hero-section {
-            min-height: 85vh;
-            width: 100%;
-            background: linear-gradient(180deg, #FFC83D 0%, #FFB800 100%);
-            border-bottom-left-radius: 120px;
-            border-bottom-right-radius: 120px;
-            padding: 0;
+            display: flex;
+            min-height: 95vh;
+            padding-top: 50px;
+            padding-bottom: 0;
+            background: linear-gradient(135deg, #FFC83D 0%, #FFB800 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-wrapper {
-            max-width: 1000px;
+        .hero-wave {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
             width: 100%;
+            line-height: 0;
         }
 
-        /* isi konten center */
-        .hero-content {
-            text-align: center;
+        .hero-wave svg {
+            display: block;
+            width: 100%;
+            height: 140px;
+        }
+        
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+
+        .hero-section .container {
+            position: relative;
+            /* padding: 0; */
+            z-index: 2;
+        }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+        }
+
+        .hero-left-content {
+            z-index: 2;
         }
 
         .hero-title {
-            font-size: 2.4rem !important;
-            color: #111 !important;
-            font-weight: 800 !important;
+            font-size: 2.7rem;
+            font-weight: 800;
+            color: #2A3141;
+            padding-top: 2rem;
         }
 
         .hero-subtitle {
-            font-size: 2.4rem !important;
-            color: #2A3141 !important;
-            font-weight: 800 !important;
+            font-size: 1.8rem;
+            color: #2A3141;
+            font-weight: 700;
         }
 
         .hero-desc {
             font-size: 1rem;
+            line-height: 1.7;
             color: #2A3141;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
         }
 
-        /* Button */
-        .btn-hero {
-            background-color: #2A3141;
-            color: #fff;
-            font-weight: 600;
-            transition: all 0.25s ease;
+        .hero-buttons .btn {
+            font-weight: 570;
+            transition: all 0.3s ease;
             margin-top: 1rem;
         }
 
-        .btn-hero:hover {
-            background-color: #ffffff !important;
-            color: #1f2a3e !important;
-            border: 1.5px solid #1f2a3e !important;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+        .badge-animated {
+            background: rgba(255, 255, 255, .3);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            display: inline-block;
         }
 
-        .btn-hero:hover {
-            background-color: #1b2230;
-            transform: translateY(-2px);
-            color: #fff;
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #2A3141;
+            width: 0;
+            animation:
+                typing 5s steps(25, end) infinite,
+                blink .8s infinite;
         }
 
-        /* Desktop scaling */
-        @media (min-width: 1200px) {
-            .hero-title {
-                font-size: 3.5rem;
+        @keyframes typing {
+            0% {
+                width: 0;
             }
 
-            .hero-subtitle {
-                font-size: 1.7rem;
+            40%,
+            60% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                border-color: #474747;
+            }
+
+            51%,
+            100% {
+                border-color: transparent;
+            }
+        }
+
+        .highlight-text {
+            color: #1c2434;
+        }
+
+        .btn-hero-primary {
+            background: #2A3141;
+            color: white;
+            border: none;
+            transition: all .3s ease;
+        }
+
+        .btn-hero-primary:hover {
+            background: #8ED8B5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 138, 61, .25);
+        }
+
+        .btn-hero-secondary {
+            /* border: 2px solid #2A3141; */
+            background: #FF8A3D;
+            color: #ffffff;
+            transition: all .3s ease;
+        }
+
+        .btn-hero-secondary:hover {
+            background: #8ED8B5;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /*  Elements Container */
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2A3141;
+        }
+
+        .stat-label {
+            font-size: .85rem;
+        }
+
+        .hero-illustration {
+            position: relative;
+            display: inline-block;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .floating-illustration {
+            width: 100%;
+            max-width: 560px;
+            height: auto;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            padding: 8px 14px;
+            border-radius: 40px;
+
+            font-size: 0.70rem;
+            font-weight: 600;
+            color: #2A3141;
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, .08),
+                0 2px 8px rgba(0, 0, 0, .05);
+
+            border: 1px solid rgba(255, 255, 255, .4);
+
+            transition: all .3s ease;
+        }
+
+        .card-1 {
+            top: 15%;
+            left: 5%;
+        }
+
+        .card-2 {
+            top: 45%;
+            right: 5%;
+        }
+
+        .card-3 {
+            bottom: 15%;
+            left: 12%;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .scroll-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: 999px;
+
+            font-size: .9rem;
+            font-weight: 600;
+            color: #2A3141;
+
+            animation: floatExplore 2.5s ease-in-out infinite;
+        }
+
+        .arrow {
+            display: inline-block;
+            animation: arrowBounce 1.2s ease-in-out infinite;
+        }
+
+        @keyframes floatExplore {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .mouse {
+            width: 28px;
+            height: 45px;
+            border: 2px solid #2A3141;
+            border-radius: 20px;
+            margin: auto;
+            position: relative;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background: #2A3141;
+            border-radius: 2px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            from {
+                opacity: 1;
+                top: 8px;
+            }
+
+            to {
+                opacity: 0;
+                top: 22px;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
             }
         }
 
@@ -301,10 +558,10 @@
         }
 
         .problem-title {
-            font-size: 2rem !important;
+            margin-top: 2rem;
+            font-size: 1.75rem !important;
             color: #2A3141 !important;
             font-weight: 800 !important;
-            margin-top: 2rem;
         }
 
         .problem-card {
@@ -363,16 +620,23 @@
             width: 100%;
             /* FIX */
             background: linear-gradient(180deg, #8ED8B5 0%, #76bb9b 100%);
-            border-radius: 120px;
-            margin-top: 2rem;
+            border-radius: 90px;
+            margin-top: 1rem;
 
         }
 
+        .time-wrapper {
+            position : relativer;
+            margin-top: 3rem;
+            margin-bottom: 3.5rem;
+        }
+
         .time-title {
-            font-size: 2rem !important;
+            font-size: 1.75rem !important;
             color: #2A3141 !important;
             font-weight: 800 !important;
-            margin-top: 2rem;
+            /* margin-top: 1rem !important; */
+            padding-bottom: 2rem;
         }
 
         /* isi konten center */
@@ -492,13 +756,14 @@
             min-height: 52vh;
             width: 100%;
             background: linear-gradient(180deg, #FFC83D 0%, #FFB800 100%);
-            border-radius: 80px;
+            border-radius: 70px;
             padding: 0;
             margin-top: 30px;
         }
 
         .call-subtitle {
-            font-size: 1.8rem !important;
+            /* margin-top: 2rem; */
+            font-size: 1.75rem !important;
             color: #2A3141 !important;
             font-weight: 800 !important;
         }
@@ -518,6 +783,8 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 0 16px;
+
+            font-size: 0.85rem;
         }
     </style>
 
