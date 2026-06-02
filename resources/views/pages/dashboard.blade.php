@@ -9,32 +9,26 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 hero-left-content">
-
                     <div class="hero-badge mb-2">
                         <span class="badge-animated">
-                            <span class="typing-text">✨ Temukan Ritme Belajarmu</span>
+                            <span class="typingtext">✨ Temukan Ritme Belajarmu</span>
                         </span>
                     </div>
-
                     <h1 class="hero-title mb-3">
                         Kenali <span class="highlight-text">Jam Pintarmu</span>
                     </h1>
-
                     <h2 class="hero-subtitle mb-4">
                         Tingkatkan Fokus Belajarmu
                     </h2>
-
                     <p class="hero-desc mb-4">
                         Temukan jam terbaik otakmu untuk belajar lebih fokus,
                         santai, dan efektif. Lewat kuis seru, kami bantu kamu
                         kenali ritme belajarmu.
                     </p>
-
                     <div class="hero-buttons">
                         <a href="{{ route('student.index') }}" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
                             ✨ Cari Jam Pintarku
                         </a>
-
                         {{-- <a href="#problem" class="btn btn-hero-secondary px-4 py-3 rounded-pill">
                             Pelajari Lebih Lanjut
                         </a> --}}
@@ -128,9 +122,7 @@
                         </p>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section>
 
@@ -236,11 +228,11 @@
                 {{-- @auth --}}
 
                 <div class="hero-buttons">
-                        <a href="#home" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
-                            Mulai Perjalanan
-                        </a>
-                    </div>
-            
+                    <a href="#home" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
+                        Mulai Perjalanan
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -254,7 +246,9 @@
     </section>
 
     <style>
+
         .hero-section {
+            display: flex;
             min-height: 95vh;
             padding-top: 50px;
             padding-bottom: 0;
@@ -276,6 +270,7 @@
             width: 100%;
             height: 140px;
         }
+        
 
         .hero-stats {
             display: flex;
@@ -287,6 +282,11 @@
             position: relative;
             /* padding: 0; */
             z-index: 2;
+        }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
         }
 
         .hero-left-content {
@@ -396,7 +396,7 @@
             transform: translateY(-2px);
         }
 
-        /* Background Elements Container */
+        /*  Elements Container */
         .stat-number {
             font-size: 1.8rem;
             font-weight: 800;
@@ -558,10 +558,10 @@
         }
 
         .problem-title {
-            font-size: 2rem !important;
+            margin-top: 2rem;
+            font-size: 1.75rem !important;
             color: #2A3141 !important;
             font-weight: 800 !important;
-            margin-top: 2rem;
         }
 
         .problem-card {
@@ -620,16 +620,23 @@
             width: 100%;
             /* FIX */
             background: linear-gradient(180deg, #8ED8B5 0%, #76bb9b 100%);
-            border-radius: 120px;
+            border-radius: 90px;
             margin-top: 1rem;
 
+        }
+
+        .time-wrapper {
+            position : relativer;
+            margin-top: 3rem;
+            margin-bottom: 3.5rem;
         }
 
         .time-title {
             font-size: 1.75rem !important;
             color: #2A3141 !important;
             font-weight: 800 !important;
-            margin-top: 1rem !important;
+            /* margin-top: 1rem !important; */
+            padding-bottom: 2rem;
         }
 
         /* isi konten center */
@@ -749,13 +756,14 @@
             min-height: 52vh;
             width: 100%;
             background: linear-gradient(180deg, #FFC83D 0%, #FFB800 100%);
-            border-radius: 80px;
+            border-radius: 70px;
             padding: 0;
             margin-top: 30px;
         }
 
         .call-subtitle {
-            font-size: 1.8rem !important;
+            /* margin-top: 2rem; */
+            font-size: 1.75rem !important;
             color: #2A3141 !important;
             font-weight: 800 !important;
         }
