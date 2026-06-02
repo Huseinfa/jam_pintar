@@ -11,12 +11,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\BackofficeUserController;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\FeedbackResultController;
 use App\Http\Controllers\CityController as BackofficeCityController;
+use App\Http\Controllers\Api\GetRekomendasiController;
+use App\Http\Controllers\ContentController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
 
@@ -56,6 +60,11 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::get('/feedback/{token}', [FeedbackController::class, 'showForm'])->middleware('auth')->name('feedback.form');  // Require auth
 Route::post('/feedback/{token}', [FeedbackController::class, 'submitFeedback'])->middleware('auth')->name('feedback.submit');
 
+// route untuk onboarding questionenr sebelum login
+Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+Route::post('/onboarding/submit', [OnboardingController::class, 'submit'])->name('pretest.submit');
+
+
 // ─── Student Routes (Authenticated Only) ───────────────────────────────────────
 
 Route::prefix('student')
@@ -69,10 +78,19 @@ Route::prefix('student')
         Route::get('/feedback/reminders', [FeedbackController::class, 'listPendingReminders'])->name('feedback.reminders');
         // try and eror route untuk google calendar
         Route::get('/calendar/{result}', [ResultController::class, 'googleCalendar'])->name('calendar');
+        Route::post('/rekomendasi', [GetRekomendasiController::class, 'getRekomendasi']);
+        Route::get('/calendar/{result}', [ResultController::class, 'googleCalendar'])->name('calendar');
+        Route::get('/form-rekomendasi', function() {
+    return view('pages.student.form-rekomendasi');
+    
+});
+
+
     });
 
 // routeuntuk menampilkan hasil rekomendasi berdasarkan test attempt id
-Route::get('/result/{attemptId}', [ResultController::class, 'downloadPdf'])->name('result.pdf');
+Route::get('/result/{attemptId}',          [ResultController::class, 'show'])->name('result.show');
+Route::get('/result/{attemptId}/download', [ResultController::class, 'downloadPdf'])->name('result.pdf');
 
 // ─── Backoffice (admin only) ───────────────────────────────────────────────────
 
@@ -97,6 +115,17 @@ Route::prefix('backoffice')
         Route::get('/cities/{city}/edit', [BackofficeCityController::class, 'edit'])->name('cities.edit');
         Route::put('/cities/{city}', [BackofficeCityController::class, 'update'])->name('cities.update');
         Route::delete('/cities/{city}', [BackofficeCityController::class, 'destroy'])->name('cities.destroy');
+        
+        // Users management (list, show details, export CSV)
+        Route::get('/users', [BackofficeUserController::class, 'index'])->name('users');
+        Route::get('/users/export', [BackofficeUserController::class, 'export'])->name('users.export');
+        Route::get('/users/export/pdf', [BackofficeUserController::class, 'exportAllPdf'])->name('users.export.pdf');
+        Route::get('/users/{user}', [BackofficeUserController::class, 'show'])->name('users.show');
+        Route::get('/users/{user}/export', [BackofficeUserController::class, 'exportUser'])->name('users.export.user');
+        Route::get('/users/{user}/export/pdf', [BackofficeUserController::class, 'exportUserPdf'])->name('users.export.user.pdf');
+        Route::get('/users/{user}/edit', [BackofficeUserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [BackofficeUserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [BackofficeUserController::class, 'destroy'])->name('users.destroy');
 
         // feedback
         Route::get('/feedback-result', [FeedbackResultController::class, 'index'])
@@ -107,4 +136,9 @@ Route::prefix('backoffice')
 
         Route::get('/feedback-result/{testAttempt}', [FeedbackResultController::class, 'show'])
             ->name('feedback_result.show');
-    });
+
+        // content
+        Route::get('/content', [ContentController::class, 'index'])
+            ->name('content');
+        Route::resource('contents', ContentController::class);
+    });    

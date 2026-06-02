@@ -99,12 +99,20 @@
             {{-- Dashboard --}}
             <li class="nav-item">
                 <a href="{{ route('backoffice.index') }}"
-                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.index') ? 'active-sidebar' : '' }}">
+                class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.index') ? 'active-sidebar' : '' }}">
+                
+                <i class="bi bi-house me-2"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('backoffice.users') }}"
+            class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.users*') ? 'active-sidebar' : '' }}">
+                <i class="bi bi-people me-2"></i>
+                Pengguna
+            </a>
+        </li>
 
-                    <i class="bi bi-house me-2"></i>
-                    Dashboard
-                </a>
-            </li>
 
             {{-- CRUD Question --}}
             <li class="nav-item">
@@ -125,7 +133,8 @@
                     Kota
                 </a>
             </li>
-
+            
+            {{-- Users management --}}
             {{-- RESULT Feedback --}}
             <li class="nav-item">
                 <a href="{{ route('backoffice.feedback_result') }}"
@@ -133,6 +142,15 @@
 
                     <i class="bi bi-chat-left-text me-2"></i> {{-- Menambahkan ikon chat --}}
                     Feedback Result
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('backoffice.content') }}"
+                    class="nav-link sidebar-link text-white {{ request()->routeIs('backoffice.content') ? 'active-sidebar' : '' }}">
+
+                    <i class="bi bi-file-earmark-text me-2"></i>
+                    Konten
                 </a>
             </li>
 

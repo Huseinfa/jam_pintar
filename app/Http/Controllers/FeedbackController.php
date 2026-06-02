@@ -53,7 +53,11 @@ class FeedbackController extends Controller
         // Validasi dinamis berdasarkan questions yang ada
         $validationRules = [];
         foreach ($feedbackQuestions as $question) {
-            $validationRules["answer.{$question->id}"] = 'required|string|min:10|max:2000';
+            if ($question->answer_type === 'essay') {
+                $validationRules["answer.{$question->id}"] = 'required|string|min:10|max:2000';
+            } else {
+                $validationRules["answer.{$question->id}"] = 'required|string';
+            }
         }
 
         $validated = $request->validate($validationRules);

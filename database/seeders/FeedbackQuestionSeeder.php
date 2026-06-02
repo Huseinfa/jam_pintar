@@ -14,64 +14,65 @@ class FeedbackQuestionSeeder extends Seeder
     {
         $feedbackQuestions = [
             [
-                'question_text' => 'Seberapa mudah Anda memahami instruksi dan cara menjawab soal pada aplikasi Jam Pintar?',
+                'question_text' => 'Seberapa cocok hasil tes kepribadian dengan Anda?',
                 'question_type' => 'feedback',
                 'answer_type'   => 'choice',
-                'option' => json_encode([
-                    'Sangat Sulit',
-                    'Sulit',
-                    'Cukup Mudah',
-                    'Mudah',
-                    'Sangat Mudah'
-                ]),
+                'option' => [
+                    'Sangat Cocok',
+                    'Cocok',
+                    'Kurang Cocok',
+                    'Tidak Cocok'
+                ],
             ],
             [
-                'question_text' => 'Bagaimana penilaian Anda mengenai tampilan antarmuka (UI) aplikasi Jam Pintar?',
+                'question_text' => 'Seberapa puas Anda dengan rekomendasi yang diberikan?',
                 'question_type' => 'feedback',
                 'answer_type'   => 'choice',
-                'option' => json_encode([
-                    'Sangat Buruk',
-                    'Buruk',
-                    'Cukup',
-                    'Baik',
-                    'Sangat Baik'
-                ]),
-            ],
-            [
-                'question_text' => 'Apakah durasi waktu tes sudah cukup untuk menyelesaikan seluruh pertanyaan?',
-                'question_type' => 'feedback',
-                'answer_type'   => 'choice',
-                'option' => json_encode([
-                    'Sangat Tidak Cukup',
-                    'Tidak Cukup',
-                    'Cukup',
-                    'Cukup Lama',
-                    'Sangat Cukup'
-                ]),
-            ],
-            [
-                'question_text' => 'Seberapa relevan hasil rekomendasi yang Anda dapatkan setelah tes?',
-                'question_type' => 'feedback',
-                'answer_type'   => 'choice',
-                'option' => json_encode([
-                    'Sangat Tidak Relevan',
-                    'Tidak Relevan',
-                    'Cukup Relevan',
-                    'Relevan',
-                    'Sangat Relevan'
-                ]),
-            ],
-            [
-                'question_text' => 'Seberapa puas Anda terhadap keseluruhan pengalaman menggunakan Jam Pintar?',
-                'question_type' => 'feedback',
-                'answer_type'   => 'choice',
-                'option' => json_encode([
-                    'Sangat Tidak Puas',
-                    'Tidak Puas',
-                    'Netral',
+                'option' => [
+                    'Sangat Puas',
                     'Puas',
-                    'Sangat Puas'
-                ]),
+                    'Biasa Saja',
+                    'Tidak Puas'
+                ],
+            ],
+            [
+                'question_text' => 'Apakah instruksi dan penjelasan hasil mudah dipahami?',
+                'question_type' => 'feedback',
+                'answer_type'   => 'choice',
+                'option' => [
+                    'Sangat Mudah',
+                    'Mudah',
+                    'Cukup',
+                    'Sulit'
+                ],
+            ],
+            [
+                'question_text' => 'Bagaimana penilaian Anda terhadap pengalaman/tampilan aplikasi saat mengikuti tes?',
+                'question_type' => 'feedback',
+                'answer_type'   => 'choice',
+                'option' => [
+                    'Sangat Baik',
+                    'Baik',
+                    'Cukup',
+                    'Kurang Baik'
+                ],
+            ],
+            [
+                'question_text' => 'Apakah Anda akan merekomendasikan fitur tes ini kepada teman atau kerabat?',
+                'question_type' => 'feedback',
+                'answer_type'   => 'choice',
+                'option' => [
+                    'Pasti Merekomendasikan',
+                    'Mungkin',
+                    'Ragu-ragu',
+                    'Tidak Akan'
+                ],
+            ],
+            [
+                'question_text' => 'Apa saran, kritik, atau fitur baru yang ingin Anda sampaikan untuk pengembangan Jam Pintar ke depannya?',
+                'question_type' => 'feedback',
+                'answer_type'   => 'essay',
+                'option' => [],
             ],
         ];
 

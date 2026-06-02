@@ -5,6 +5,17 @@
     body {
         background-color: #FDC334;
     }
+    
+    .option-label {
+        position: relative;
+    }
+    
+    .option-label:hover span {
+        background-color: #FFD700 !important;
+        border-color: #F5A623 !important;
+        font-weight: 600 !important;
+        transform: scale(1.05);
+    }
 </style>
 <div class="container py-5" style="padding-top: 120px;">
     <div class="row justify-content-center">
@@ -43,12 +54,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 
-                                @if ($question->answer_type === 'choice' && $question->option)
-                                    <div class="option-container" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
+                                @if ($question->answer_type === 'choice' && is_array($question->option) && count($question->option) > 0)
+                                    <div class="option-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 12px;">
                                         @foreach ($question->option as $option)
-                                            <label class="option-label" style="flex: 1; min-width: 120px;">
+                                            <label class="option-label" style="width: 100%;">
                                                 <input type="radio" name="answer[{{ $question->id }}]" value="{{ $option }}" {{ old("answer.{$question->id}") === $option || (isset($savedInput["answer"][$question->id]) && $savedInput["answer"][$question->id] === $option) ? 'checked' : '' }} required>
-                                                <span style="display: block; padding: 10px 12px; border: 2px solid #ddd; border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                                                <span style="display: block; padding: 10px 12px; border: 2px solid #ddd; border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; line-height: 1.3;" data-tooltip="{{ $option }}">
                                                     {{ $option }}
                                                 </span>
                                             </label>

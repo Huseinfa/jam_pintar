@@ -26,7 +26,7 @@
                         kenali ritme belajarmu.
                     </p>
                     <div class="hero-buttons">
-                        <a href="{{ route('student.index') }}" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
+                        <a href="{{ route('onboarding') }}" class="btn btn-hero-primary px-4 py-3 rounded-pill me-3">
                             ✨ Cari Jam Pintarku
                         </a>
                         {{-- <a href="#problem" class="btn btn-hero-secondary px-4 py-3 rounded-pill">
@@ -797,4 +797,12 @@
         </script>
     @endif
 
+    @if (request()->query('showLogin')) 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                var modal = new bootstrap.Modal( document.getElementById('modalLogin') ); modal.show(); // Hapus query parameter setelah modal muncul 
+                window.history.replaceState({}, document.title, window.location.pathname); 
+            }); 
+        </script>
+    @endif
 @endsection

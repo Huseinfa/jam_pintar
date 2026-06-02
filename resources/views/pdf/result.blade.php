@@ -5,209 +5,257 @@
 <head>
     <meta charset="UTF-8">
     <title>Hasil Rekomendasi Belajar - SmartPeak</title>
+<style>
 
-    <style>
-        * {
-            font-family: Arial, sans-serif;
-            box-sizing: border-box;
-        }
+    body {
+        font-family: 'poppins', sans-serif;
+        font-size: 12px;
+        color: #2D3748;
+        margin: 0;
+        padding: 0;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background: #F9FAFB;
-            color: #1F2937;
-        }
+    .container {
+        padding: 30px;
+    }
+    /* HEADER */
+    .header {
+        background: #F4B400;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
 
-        .container {
-            padding: 40px;
-        }
+    .logo {
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-        /* HEADER */
-        .header {
-            background: #F4B400;
-            color: #1F2937;
-            padding: 30px;
-            border-radius: 18px;
-            margin-bottom: 30px;
-        }
+    .header-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+    .header-subtitle {
+        font-size: 12px;
+        margin-top: 8px;
+        line-height: 1.8;
+    }
 
-        .header-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+    .report-info {
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid #E2E8F0;
+        background: #F8FAFC;
+    }
 
-        .header-subtitle {
-            font-size: 14px;
-            line-height: 1.7;
-        }
+    /* CARD */
+    .card {
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 18px;
+    }
 
-        /* CARD */
-        .card {
-            background: #FFFFFF;
-            border-radius: 18px;
-            padding: 30px;
-            margin-bottom: 24px;
-            border: 1px solid #E5E7EB;
-        }
+    .section-title {
+        font-size: 15px;
+        font-weight: bold;
+        color: #F59E0B;
+        border-bottom: 1px solid #E5E7EB;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+    }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 14px;
-            color: #111827;
-        }
+    /* PROFILE */
 
-        /* STUDY BADGE */
-        .study-badge {
-            display: inline-block;
-            background: #FFF4D6;
-            color: #B7791F;
-            padding: 10px 18px;
-            border-radius: 999px;
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+    .profile-table {
+        width: 100%;
+    }
 
-        /* RECOMMENDATION */
-        .recommendation-text {
-            font-size: 14px;
-            line-height: 1.9;
-            color: #374151;
-            text-align: justify;
-        }
+    .profile-table td {
+        padding: 6px 0;
+    }
 
-        /* TIME BOX */
-        .time-wrapper {
-            margin-top: 10px;
-        }
+    .label {
+        width: 140px;
+        font-weight: bold;
+    }
 
-        .time-box {
-            width: 48%;
-            display: inline-block;
-            vertical-align: top;
-            background: #F9FAFB;
-            border: 1px solid #E5E7EB;
-            border-radius: 14px;
-            padding: 20px;
-        }
+    /* BADGE */
 
-        .time-box.right {
-            float: right;
-        }
+    .study-badge {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #FEF3C7;
+        color: #92400E;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 20px;
+    }
 
-        .time-label {
-            font-size: 13px;
-            color: #6B7280;
-            margin-bottom: 10px;
-        }
+    /* RECOMMENDATION */
 
-        .time-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #111827;
-        }
+    .recommendation-text {
+        text-align: justify;
+        line-height: 1.8;
+    }
 
-        /* FOOTER */
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 12px;
-            color: #9CA3AF;
-        }
+    /* TIME */
+    .time-table {
+    width: 100%;
+    border-collapse: collapse;
+    }
 
-        .divider {
-            margin: 25px 0;
-            border-top: 1px solid #E5E7EB;
-        }
+    .time-table td {
+        width: 50%;
+        vertical-align: top;
+        padding: 0 8px;
+    }
 
-    </style>
+    .time-box {
+        border: 1px solid #E5E7EB;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        min-height: 70px;
+    }
+
+    .time-label {
+        font-size: 11px;
+        color: #6B7280;
+        margin-bottom: 10px;
+    }
+
+    .time-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: #1F2937;
+    }
+    /* CONCLUSION */
+
+    .conclusion {
+        background: #FFF7ED;
+        border-left: 5px solid #F59E0B;
+        padding: 15px;
+        line-height: 1.8;
+    }
+
+    /* FOOTER */
+
+    .divider {
+        border-top: 1px solid #E5E7EB;
+        margin: 20px 0;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 11px;
+        color: #718096;
+        margin-top: 30px;
+    }
+
+</style>
 </head>
 <body>
+<div class="container">
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">
+        SMARTPEAK
+    </div>
+    <div class="header-title">
+        Laporan Hasil Analisis Pola Belajar
+    </div>
+    <div class="header-subtitle">
+        Dokumen ini berisi hasil analisis dan rekomendasi waktu belajar
+        berdasarkan kebiasaan belajar pengguna pada sistem SmartPeak.
+    </div>
+</div>
 
-    <div class="container">
+<!-- INFORMASI LAPORAN -->
 
-        {{-- HEADER --}}
-        <div class="header">
-            <div class="logo">
-                SMARTPEAK
-            </div>
+<div class="report-info">
+    <strong>ID Hasil :</strong>
+    SP-{{ str_pad($result->id, 5, '0', STR_PAD_LEFT) }}
+    <br>
+    <strong>Tanggal Analisis :</strong>
+    {{ $result->created_at->format('d F Y') }}
+</div>
 
-            <div class="header-title">
-                Hasil Rekomendasi Belajar
-            </div>
+<!-- PROFIL PENGGUNA -->
 
-            <div class="header-subtitle">
-                Dokumen ini berisi hasil rekomendasi waktu belajar berdasarkan
-                jawaban kuisioner yang telah diisi pada sistem SmartPeak.
-            </div>
-        </div>
+<div class="card">
+    <div class="section-title">
+        Profil Pengguna
+    </div>
+    <table class="profile-table">
+        <tr>
+            <td class="label">Nama</td>
+            <td>: {{ $result->testAttempt->user->name }}</td>
+        </tr>
+        <tr>
+            <td class="label">Email</td>
+            <td>: {{ $result->testAttempt->user->email }}</td>
+        </tr>
+        <tr>
+            <td class="label">Usia</td>
+            <td>:
+                {{ \Carbon\Carbon::parse($result->testAttempt->user->birth_date)->age }}
+                Tahun
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Jenis Kelamin</td>
+            <td>:
+                {{ $result->testAttempt->user->gender == 'LakiLaki'
+                    ? 'Laki-Laki'
+                    : 'Perempuan' }}
+            </td>
+        </tr>
+    </table>
+</div>
 
-        {{-- PREFERRED STUDY TIME --}}
-        <div class="card">
-            <div class="section-title">
-                Preferred Study Time
-            </div>
+<!-- HASIL ANALISIS -->
 
-            <div class="study-badge">
-                {{ strtoupper($result->recommendation->preferred_study_time ?? $result->recommendation->prefered_study_time) }}
-            </div>
-        </div>
+<div class="card">
+    <div class="section-title">
+        Hasil Analisis Pola Belajar
+    </div>
+    <div class="study-badge">
+        {{ strtoupper($result->recommendation->preferred_study_time ?? $result->recommendation->prefered_study_time) }}
+    </div>
+</div>
 
-        {{-- RECOMMENDATION --}}
-        <div class="card">
-            <div class="section-title">
-                Rekomendasi Belajar
-            </div>
-
-            <div class="recommendation-text">
-                {{ $result->recommendation->recomendation }}
-            </div>
-        </div>
-
-        {{-- STUDY HOURS --}}
-        <div class="card">
-
-            <div class="section-title">
-                Waktu Belajar yang Disarankan
-            </div>
-
-            <div class="time-wrapper">
-
-                {{-- MAIN TIME --}}
+<!-- WAKTU BELAJAR -->
+<div class="card">
+    <div class="section-title">
+        Waktu Belajar yang Direkomendasikan
+    </div>
+    <table class="time-table">
+        <tr>
+            <td>
                 <div class="time-box">
-
                     <div class="time-label">
                         Jam Belajar Utama
                     </div>
-
                     <div class="time-value">
                         {{ \Carbon\Carbon::parse($result->recommendation->study_hour_start)->format('H:i') }}
                         -
                         {{ \Carbon\Carbon::parse($result->recommendation->study_hour_end)->format('H:i') }}
                     </div>
-
                 </div>
-
-                {{-- ALT TIME --}}
-                <div class="time-box right">
-
+            </td>
+            <td>
+                <div class="time-box">
                     <div class="time-label">
-                        Jam Alternatif
+                        Jam Belajar Alternatif
                     </div>
-
                     <div class="time-value">
-
-                        @if($result->recommendation->alt_study_hour_start && $result->recommendation->alt_study_hour_end)
-
+                        @if(
+                            $result->recommendation->alt_study_hour_start &&
+                            $result->recommendation->alt_study_hour_end
+                        )
                             {{ \Carbon\Carbon::parse($result->recommendation->alt_study_hour_start)->format('H:i') }}
                             -
                             {{ \Carbon\Carbon::parse($result->recommendation->alt_study_hour_end)->format('H:i') }}
@@ -215,28 +263,52 @@
                         @else
                             -
                         @endif
-
                     </div>
-
                 </div>
+            </td>
+        </tr>
+    </table>
+    <div style="clear:both"></div>
+</div>
 
-            </div>
-
-            <div style="clear: both;"></div>
-
-        </div>
-
-        {{-- FOOTER --}}
-        <div class="footer">
-
-            <div class="divider"></div>
-
-            Generated automatically by SmartPeak<br>
-            © {{ date('Y') }} SmartPeak Learning Recommendation System
-
-        </div>
-
+<!-- REKOMENDASI -->
+<div class="card">
+    <div class="section-title">
+        Rekomendasi Belajar Personal
     </div>
+    <div class="recommendation-text">
+        {{ $result->recommendation->recomendation }}
+    </div>
+</div>
 
+<!-- KESIMPULAN -->
+<div class="card">
+    <div class="section-title">
+        Kesimpulan Hasil Analisis
+    </div>
+    <div class="conclusion">
+        Berdasarkan hasil analisis pola belajar yang dilakukan melalui
+        SmartPeak, pengguna memiliki kecenderungan belajar paling optimal
+        pada kategori
+        <strong>
+            {{ strtoupper($result->recommendation->preferred_study_time ?? $result->recommendation->prefered_study_time) }}
+        </strong>
+        Disarankan untuk memprioritaskan aktivitas belajar pada rentang
+        waktu yang direkomendasikan agar konsentrasi, produktivitas,
+        dan efektivitas belajar dapat meningkat secara maksimal.
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="divider"></div>
+    <strong>SmartPeak Learning Recommendation System</strong>
+    <br><br>
+    Sistem rekomendasi waktu belajar berbasis analisis
+    kebiasaan belajar mahasiswa Jurusan Teknologi Informasi.
+    <br><br>
+    © {{ date('Y') }} SmartPeak
+</div>
+</div>
 </body>
 </html>
