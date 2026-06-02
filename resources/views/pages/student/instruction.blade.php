@@ -66,6 +66,7 @@
         .instruction-section {
             min-height: 100vh;
             background-color: #FFF8E8;
+            margin-top: 60px;
         }
 
         .instruction-section {}
@@ -74,11 +75,11 @@
 
         .instruction-subtitle {
             padding-bottom: 2rem;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
         .instruction-card {
-            width: 17rem;
+            width: 19rem;
             border-radius: 12%;
             transition: all 0.3s ease;
             transform: scale(1);
@@ -117,7 +118,7 @@
 
         .instruction-footer {
             padding-top: 3rem;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
         
         /* Button */
@@ -128,6 +129,7 @@
             font-size: 14px !important;
             transition: all 0.25s ease;
             margin-top: 1rem;
+            padding: 12px 28px;
         }
 
         .btn-mulai:hover {
