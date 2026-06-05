@@ -6,16 +6,37 @@
     {{-- Custom Modal --}}
     <div class="modal-overlay" id="customModal">
         <div class="modal-content">
-            <div class="modal-icon">
+            <h3 class="modal-title" id="modalTitle"></h3>
+            {{-- <div class="modal-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12" />
                 </svg>
+            </div> --}}
+            <div class="trophy-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    width="110"
+                    height="110"
+                    fill="#F4BE2C"
+                    viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4h.09A5.002 5.002 0 0 0 7 10.9V13H5.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1H9v-2.1A5.002 5.002 0 0 0 10.91 7H11a4 4 0 0 0 4-4V2a1 1 0 0 0-1-1H2zm11 2a2 2 0 0 1-2 2h-.03A5.025 5.025 0 0 0 11 4V2h2v1zM3 2h2v2a5.025 5.025 0 0 0 .03 1H5a2 2 0 0 1-2-2V2z"/>
+                </svg>
             </div>
-            <h3 class="modal-title" id="modalTitle">Berhasil</h3>
-            <p class="modal-message" id="modalMessage">Test berhasil diserahkan! Terima kasih.</p>
-            <button class="modal-btn" id="modalBtn" onclick="closeModal()">OK</button>
+
+            <div class="progress-wrapper">
+                <div class="progress-labels">
+                    <span>0</span>
+                    <span>100</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <p class="modal-message" id="modalMessage"></p>
+            <b class="text-dark" style="padding-bottom: 20px;">Yuk, cek sekarang!</b>
+            <button class="modal-btn" id="modalBtn" onclick="closeModal()">Selesai</button>
         </div>
     </div>
+    
 
     {{-- Main Content dengan Background Kuning Full --}}
     <div class="quiz-wrapper">
@@ -89,6 +110,122 @@
             padding: 0;
         }
 
+        /* ==========================
+        SUCCESS MODAL
+        ========================== */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            display: none;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 9999;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        /* .success-modal-card {
+            width: 420px;
+            max-width: 92%;
+            background: #F7F7F7;
+            border-radius: 38px;
+            padding: 50px 35px;
+            text-align: center;
+            animation: modalFade .3s ease;
+        } */
+
+        @keyframes modalFade {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #283046;
+            margin-bottom: 35px;
+        }
+
+        .trophy-wrapper {
+            margin-bottom: 25px;
+        }
+        .progress-wrapper {
+            width: 75%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+            color: #283046;
+            margin-bottom: 8px;
+        }
+        .progress-track {
+            height: 8px;
+            background: #d9d9d9;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 100%;
+            height: 100%;
+            background: #8ED1A8;
+            border-radius: 999px;
+        }
+        .success-message {
+            font-size: 12px;
+            /* line-height: 1.8; */
+            color: #283046;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        .success-subtitle {
+            font-size: 24px;
+            font-weight: 700;
+            color: #283046;
+            margin-bottom: 40px;
+        }
+
+        .success-btn {
+
+            border: none;
+
+            background: #283046;
+
+            color: white;
+
+            padding: 14px 50px;
+
+            border-radius: 999px;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .success-btn:hover {
+
+            transform: translateY(-2px);
+        }
+
         .quiz-wrapper {
             background-color: #FDC334;
             min-height: 100vh;
@@ -152,14 +289,16 @@
         }
 
         .modal-content {
-            background-color: #1e293b;
-            border-radius: 20px;
+            background-color: #fff;
+            border-radius: 40px;
             padding: 40px 50px;
+            margin-top: 70px;
             text-align: center;
             max-width: 400px;
             width: 90%;
             animation: modalFadeIn 0.3s ease;
         }
+        /* batas akhir modal */
 
         @keyframes modalFadeIn {
             from {
@@ -174,15 +313,15 @@
         }
 
         .modal-icon {
-            width: 70px;
-            height: 70px;
-            background-color: #ffffff;
-            border: 3px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            background-color: #fdc334;
+            /* border: 3px solid #ffffff; */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
         }
 
         .modal-icon svg {
@@ -190,10 +329,11 @@
         }
 
         .modal-title {
-            color: #ffffff;
+            margin-top: 30px;
+            color: #1e293b;
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
         }
 
         .modal-message {
@@ -204,19 +344,21 @@
         }
 
         .modal-btn {
-            background-color: #ffffff;
-            color: #1e293b;
+            background-color: #1e293b;
+            color: #ffffff;
             border: none;
-            padding: 12px 50px;
+            padding: 12px 10px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.2s ease;
+            width: 120px;
+            margin: auto;
         }
 
         .modal-btn:hover {
-            background-color: #f1f5f9;
+            /* background-color: #f1f5f9; */
             transform: scale(1.02);
         }
 
@@ -604,13 +746,11 @@
 
                         // });
                         showModal(
-                            'Berhasil',
-                            'Test berhasil diserahkan! Terima kasih.',
-                            'OK',
+                            'Selamat!',
+                            'Hore! Kamu berhasil menyelesaikan tes. Hasil jam pintarmu sudah mendarat di email kamu',
+                            'Selesai',
                             function() {
-
                                 window.location.href = `/result/${data.attempt_id}`;
-
                             }
                         );
                     } else {
