@@ -24,6 +24,9 @@ class SendResultEmail implements ShouldQueue
      */
     public function handle(): void
     {
+        $this->result->refresh();
+        $this->result->load(['testAttempt.user', 'recommendation']);
+
         // Pastikan user memiliki email
         if (!$this->result->testAttempt->user->email) {
             $this->result->update([

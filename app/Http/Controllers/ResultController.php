@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Jobs\SendResultEmail;
 use App\Models\Result;
 use Barryvdh\DomPDF\Facade\Pdf;
-// import bagian untuk save pdf ke storeage
-use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class ResultController extends Controller
@@ -35,30 +34,49 @@ class ResultController extends Controller
         ->where('test_attempt_id', $attemptId)
         ->firstOrFail();
 
-        // $pdf = Pdf::loadView('pdf.result', compact('result')); //coba untuk save ke dalam laravel
-        // return $pdf->download('hasil-rekomendasi.pdf');
-        // kedepannya coba untuk melakukan konfigurasi agar data rekomendasi tersimpan dan juga dapat dilakukan resend data
-        // Generate PDF
         $pdf = Pdf::loadView('pdf.result', compact('result'));
-        // nama file pdf yang akan disimpan
-        $fileName = 'hasil-rekomendasi-' . $attemptId . '.pdf';
-
-        // Path penyimpanan
+        $fileName = 'hasil-rekomendasi-' . $attemptId . '-' . now()->timestamp . '.pdf';
         $filePath = 'results/' . $fileName;
 
-        // Simpan PDF ke storage/app/public/results
-        Storage::disk('public')->put(
-            $filePath,
-            $pdf->output()
-        );
+        Storage::disk('public')->put($filePath, $pdf->output());
 
-        // Simpan path PDF ke database
         $result->update([
-            'pdf_path' => $filePath
+            'pdf_path' => $filePath,
+            'email_status' => 'pending',
         ]);
 
-        // Download PDF
-        return $pdf->download($fileName);
+        SendResultEmail::dispatch($result);
+
+        return redirect()
+            ->route('result.show', $attemptId)
+            ->with('email_sent', true);
+    }
+
+    public function resendEmailFromProfile($attemptId)
+    {
+        $result = Result::with([
+            'recommendation',
+            'testAttempt.user'
+        ])
+            ->where('test_attempt_id', $attemptId)
+            ->firstOrFail();
+
+        $pdf = Pdf::loadView('pdf.result', compact('result'));
+        $fileName = 'hasil-rekomendasi-' . $attemptId . '-' . now()->timestamp . '.pdf';
+        $filePath = 'results/' . $fileName;
+
+        Storage::disk('public')->put($filePath, $pdf->output());
+
+        $result->update([
+            'pdf_path' => $filePath,
+            'email_status' => 'pending',
+        ]);
+
+        SendResultEmail::dispatch($result);
+
+        return redirect()
+            ->route('student.profile')
+            ->with('email_sent_profile', true);
     }
 
     public function googleCalendar(Result $result)

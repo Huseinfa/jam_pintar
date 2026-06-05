@@ -46,7 +46,7 @@
                     <div class="d-flex flex-column gap-3">
                         <a href="{{ url('/result/' . $attemptId . '/download') }}"
                            style="background: #2A3141; color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; display: block;">
-                            📄 Download PDF
+                            Kirim Hasil ke Email
                         </a>
                         <a href="{{ route('student.calendar', $result->id) }}"
                            style="background: #fff; color: #2A3141; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; border: 2px solid #2A3141; display: block;">
@@ -63,4 +63,34 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if (session('email_sent'))
+            const toast = document.createElement('div');
+            toast.textContent = 'Hasil rekomendasi lengkap telah berhasil dikirimkan pada email kamu.';
+            toast.style.position = 'fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '9999';
+            toast.style.background = '#2A3141';
+            toast.style.color = '#fff';
+            toast.style.padding = '12px 16px';
+            toast.style.borderRadius = '10px';
+            toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.18)';
+            toast.style.maxWidth = '340px';
+            document.body.appendChild(toast);
+
+            setTimeout(function () {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s ease';
+                setTimeout(function () {
+                    toast.remove();
+                }, 400);
+            }, 3000);
+        @endif
+    });
+</script>
+@endpush
+
 @endsection

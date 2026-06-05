@@ -9,8 +9,8 @@ use App\Models\Result;
 use App\Models\TestAttempt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class TestController extends Controller
 {
@@ -86,8 +86,8 @@ public function submit(Request $request)
 
     Log::info('Matched recommendation ID: ' . $recommendation->id . ' prefered_study_time: ' . $recommendation->prefered_study_time);
 
-    // 7. SIMPAN RESULT
-    Result::create([
+    // 7. SIMPAN RESULT (email akan dikirim saat user men-download PDF)
+    $result = Result::create([
         'test_attempt_id'   => $testAttempt->id,
         'recommendation_id' => $recommendation->id,
         'email_status'      => 'pending',

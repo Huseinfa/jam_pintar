@@ -353,7 +353,7 @@
         {{-- BUTTON --}}
         <div class="result-action">
             {{-- DETAIL --}}
-            <a href="{{ route('result.pdf', $result->test_attempt_id) }}"
+            <a href="{{ route('result.resend.email', $result->test_attempt_id) }}"
             class="btn btn-detail">
                 <i class="bi bi-envelope-fill me-2"></i>
                 Detail Hasil
@@ -370,5 +370,33 @@
     @endif
 
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if (session('email_sent_profile'))
+            const toast = document.createElement('div');
+            toast.textContent = 'Hasil rekomendasi lengkap telah berhasil dikirimkan pada email kamu.';
+            toast.style.position = 'fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '9999';
+            toast.style.background = '#2A3141';
+            toast.style.color = '#fff';
+            toast.style.padding = '12px 16px';
+            toast.style.borderRadius = '10px';
+            toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.18)';
+            toast.style.maxWidth = '340px';
+            document.body.appendChild(toast);
+
+            setTimeout(function () {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s ease';
+                setTimeout(function () { toast.remove(); }, 400);
+            }, 3000);
+        @endif
+    });
+</script>
+@endpush
 
 @endsection
