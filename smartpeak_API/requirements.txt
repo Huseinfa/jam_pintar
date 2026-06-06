@@ -3,3 +3,4 @@ requests
 numpy
 pandas
 gunicorn
+python-dotenv
