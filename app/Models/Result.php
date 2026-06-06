@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Jobs\SendResultEmail;
 use App\Models\Recommendation;
 use App\Models\TestAttempt;
 use App\Models\User;
@@ -19,16 +18,6 @@ class Result extends Model
         'email_sent_at',
         'email_status',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Ketika result dibuat, dispatch job untuk kirim email
-        static::created(function ($model) {
-            SendResultEmail::dispatch($model);
-        });
-    }
 
     public function recommendation(): BelongsTo
     {
