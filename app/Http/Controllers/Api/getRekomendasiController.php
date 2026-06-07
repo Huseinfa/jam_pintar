@@ -28,7 +28,7 @@ class getRekomendasiController extends Controller
             'study_method'          => $request->study_method,
         ];
 
-        $response = Http::post('http://localhost:5000/recommend', $payload);
+        $response = Http::post(config('services.flask_api.url') . '/recommend', $payload);
         $hasil    = $response->json();
 
         return view('pages.student.rekomendasi', ['hasil' => $hasil]);
@@ -50,7 +50,7 @@ class getRekomendasiController extends Controller
         'usual_study_hour'      => $request->input('usual_study_hour'),
     ];
 
-    $response = Http::post('http://127.0.0.1:5000/recommend', $payload);
+    $response = Http::post(config('services.flask_api.url') . '/recommend', $payload);
     $result   = $response->json();
 
     return view('rekomendasi', [

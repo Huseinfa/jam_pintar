@@ -104,8 +104,10 @@ public function submit(Request $request)
 private function callFlaskApi(array $payload): string
 {
     try {
+        $flaskUrl = config('services.flask_api.url');
+
         $response = \Illuminate\Support\Facades\Http::timeout(10)
-            ->post('http://127.0.0.1:5000/recommend', $payload);
+            ->post("{$flaskUrl}/recommend", $payload);
 
         if ($response->successful()) {
             $data = $response->json();

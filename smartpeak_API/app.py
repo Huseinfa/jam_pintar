@@ -232,4 +232,6 @@ def health():
 # ─── Entry Point ───────────────────────────────────────────────────────────────
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    port = int(os.getenv("PORT", "5000"))
+    debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug)
