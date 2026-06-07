@@ -23,7 +23,14 @@ use App\Http\Controllers\Api\GetRekomendasiController;
 use App\Http\Controllers\ContentController;
 
 // ─── Public ───────────────────────────────────────────────────────────────────
-
+//health check
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'env' => config('app.env'),
+        'db' => config('database.default'),
+    ]);
+});
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Compatibility route for Laravel auth middleware redirect
@@ -92,6 +99,8 @@ Route::prefix('student')
 Route::get('/result/{attemptId}',          [ResultController::class, 'show'])->name('result.show');
 Route::get('/result/{attemptId}/download', [ResultController::class, 'downloadPdf'])->name('result.pdf');
 Route::get('/result/{attemptId}/resend-email', [ResultController::class, 'resendEmailFromProfile'])->name('result.resend.email');
+
+
 
 // ─── Backoffice (admin only) ───────────────────────────────────────────────────
 
