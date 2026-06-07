@@ -36,7 +36,7 @@ return [
     ],
 
     'flask_api' => [
-        'url' => rtrim(env('FLASK_API_URL', 'http://127.0.0.1:5000'), '/'),
+        'url' => rtrim(env('FLASK_API_URL', 'https://flask-production-7d59.up.railway.app'), '/'),
     ],
 
 ];

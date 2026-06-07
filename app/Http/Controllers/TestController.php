@@ -75,6 +75,7 @@ public function submit(Request $request)
     ]);
 
     // 5. PANGGIL FLASK API
+    Log::info('Payload sent to Flask:', $payload);  // ← ADD THIS
     $recommendationSlot = $this->callFlaskApi($payload);
 
     // 6. CARI RECOMMENDATION BERDASARKAN SLOT
