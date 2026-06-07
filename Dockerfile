@@ -1,5 +1,6 @@
-FROM php:8.3-apache
+FROM php:8.3-cli
 
+# System dependencies
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -10,33 +11,32 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# PHP extensions
 RUN docker-php-ext-install \
     gd \
     zip \
     mbstring \
     xml \
-    pdo \
     pdo_mysql
 
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+# Application directory
+WORKDIR /app
 
+# Copy project files
 COPY . .
 
+# Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-RUN a2enmod rewrite
+# Laravel optimization (safe if .env isn't present during build)
+RUN php artisan config:clear || true
+RUN php artisan cache:clear || true
+RUN php artisan route:clear || true
+RUN php artisan view:clear || true
 
-RUN chown -R www-data:www-data storage bootstrap/cache
 
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf \
-    /etc/apache2/conf-available/*.conf
-
-EXPOSE 80
-
-CMD ["apache2-foreground"]
+# Railway start command
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
