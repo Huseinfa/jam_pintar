@@ -108,6 +108,8 @@ private function callFlaskApi(array $payload): string
         $flaskUrl = config('services.flask_api.url');
 
         $response = \Illuminate\Support\Facades\Http::timeout(10)
+            ->withHeaders(['Content-Type' => 'application/json'])
+            ->asJson()  // ← ADD THIS
             ->post("{$flaskUrl}/recommend", $payload);
 
         if ($response->successful()) {
@@ -115,11 +117,11 @@ private function callFlaskApi(array $payload): string
             return $data['recommendation'] ?? 'Morning';
         } else {
             Log::error('Flask API error: ' . $response->body());
-            return 'Morning'; // ensure a string is always returned
+            return 'Morning';
         }
     } catch (\Exception $e) {
         Log::error('Flask API exception: ' . $e->getMessage());
         return 'Morning';
-        }
+    }
     }
 }
