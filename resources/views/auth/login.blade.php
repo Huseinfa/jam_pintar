@@ -13,6 +13,40 @@
             padding: 1.75rem !important;
         }
     }
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.toggle-password-btn {
+
+    position: absolute;
+
+    top: 50%;
+    right: 15px;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: none;
+
+    width: 40px;
+    height: 40px;
+
+    cursor: pointer;
+
+    color: #999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10;
+}
+
+.toggle-password-btn:active {
+    transform: scale(0.95);
+}
 </style>
 
 
@@ -63,16 +97,34 @@
                     </div>
                     {{-- password --}}
                     <div class="mb-3">
-                        <label for="password" class="form-label fw-semibold small">Password</label>
-                        <input
-                            type="password"
-                            class="form-control py-3 px-3"
-                            id="password"
-                            name="password"
-                            placeholder="Masukkan Password"
-                            required
-                            style="border-radius: 50px; border: 1.5px solid #2A3141; font-size: 0.95rem;"
-                        >
+                        <label for="password" class="form-label fw-semibold small">
+                            Password
+                        </label>
+
+                        <div class="password-input-wrapper position-relative">
+
+                            <input
+                                type="password"
+                                class="form-control py-3 px-3"
+                                id="password"
+                                name="password"
+                                placeholder="Masukkan Password"
+                                required
+                                style="
+                                    border-radius:50px;
+                                    border:1.5px solid #2A3141;
+                                    font-size:.95rem;
+                                    padding-right:50px;
+                                "
+                            >
+                            <button
+                                type="button"
+                                class="toggle-password-btn"
+                                title="Tampilkan Password">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
                     </div>
                     {{-- remember me dan lupa password --}}
                     <div class="d-flex justify-content-between aligh-items-center mb-4">
@@ -124,4 +176,37 @@
         modal.show();
     });
 </script>
+
 @endif
+<script>
+// =========================
+// TOGGLE PASSWORD - Main Handler
+// =========================
+document.addEventListener('DOMContentLoaded', function() {
+
+    const passwordInput = document.getElementById('password');
+
+    const toggleButton = document.getElementById('togglePassword');
+
+    const icon = toggleButton.querySelector('i');
+
+    toggleButton.addEventListener('click', function() {
+
+        if (passwordInput.type === 'password') {
+
+            passwordInput.type = 'text';
+
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+
+        } else {
+
+            passwordInput.type = 'password';
+
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+});
+
+</script>
